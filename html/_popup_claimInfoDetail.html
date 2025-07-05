@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="ko" class="__layout_popup__">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no, address=no, email=no">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
+
+	<!-- 소셜태그 -->
+	<meta property="og:title" content="">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="">
+	<meta property="og:site_name" content="">
+	<!--// 소셜태그 -->
+
+	<title>(팝업) 클레임 정보 상세 - 스타일크루 CSAdmin</title>
+
+	<!-- 공통 css -->
+	<link rel="stylesheet" href="../css/lib.css">
+	<link rel="stylesheet" href="../css/app.css">
+	<!-- <link rel="stylesheet" data-css="{ '_href': '../css/font.css' }"> -->
+
+	<!-- (D) 폴리필/라이브러리는 요청을 줄이기 위해 combind + minify를 적용해주세요. -->
+	<!-- 폴리필/라이브러리 스크립트 -->
+	<script src="../js/polyfill/babel-polyfill-7.12.1.min.js"></script>
+	<script src="../js/polyfill/dom4-2.1.5.min.js"></script>
+	<script src="../js/polyfill/fetch.umd-3.6.2.min.js"></script>
+	<script src="../js/polyfill/intersection-observer-0.12.0.min.js"></script>
+	<script src="../js/polyfill/resize-observer-1.5.1.min.js"></script>
+	<script src="../js/lib/lodash-4.17.21.min.js"></script>
+	<script src="../js/lib/axios-0.21.1.min.js"></script>
+	<script src="../js/lib/load-image.all-5.14.0.min.js"></script>
+	<script src="../js/lib/sortable-1.13.0.min.js"></script>
+	<script src="../js/lib/gsap-3.6.1/gsap.min.js"></script>
+	<script src="../js/lib/jquery-3.6.0.min.js"></script>
+	<script src="../js/lib/editor-2.23.0/trumbowyg.min.js"></script>
+	<script src="../js/lib/editor-2.23.0/plugins/colors/trumbowyg.colors.js"></script>
+	<script src="../js/lib/editor-2.23.0/plugins/fontsize/trumbowyg.fontsize.min.js"></script>
+	<script src="../js/lib/editor-2.23.0/plugins/table/trumbowyg.table.min.js"></script>
+
+	<!-- 공통 스크립트 -->
+	<script src="../js/app_common.js"></script>
+	<script src="../js/app_page-common.js"></script>
+
+	<!-- (D) 페이지 전용 스크립트는 .mm_page-content 하단에 넣어주세요. -->
+</head>
+<body>
+	<div id="mm_app" class="mm_app">
+		<!-- 스킵 -->
+		<nav class="mm_skip">
+			<ul>
+				<li><a href="#mm_body" data-href="anchor">본문바로가기</a></li>
+			</ul>
+		</nav>
+		<!-- 스킵 -->
+
+		<!-- 화면 -->
+		<div class="mm_view">
+			<!-- 헤더 -->
+			<div class="mm_header">
+				<h1><b>클레임 정보 상세</b></h1>
+				<button type="button" class="btn_popup-close" onclick="window.close();return false;"><i class="ico_close-popup"></i><b class="mm_ir-blind">팝업닫기</b></button>
+			</div>
+			<!--// 헤더 -->
+
+			<!-- 내용 -->
+			<div id="mm_body" class="mm_page">
+				<!-- 본문 -->
+				<!--
+					(D) 실제 내용을 추가하는 부분입니다.
+					팝업은 html 요소에 '__layout_popup__' 클래스를 추가합니다.
+				-->
+				<div class="mm_page-content m_popup-claim-info">
+					<!-- 본문 내용 -->
+					<div class="mm_container">
+						<!-- 주문번호 안내 -->
+						<div class="mm_form">
+							<table>
+								<tbody>
+									<tr>
+										<th></th><td></td><th></th><td></td>
+									</tr>
+									<tr>
+										<th scope="row"><b>주문번호</b></th>
+										<td><p>123456789</p></td>
+										<th scope="row"><b>제휴 주문번호</b></th>
+										<td><p>-</p></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<!--// 주문번호 안내 -->
+						<form>
+							<!-- 취소 -->
+							<div class="m__info-group">
+								<!-- 상품 정보 -->
+								<div class="mm_tablebox">
+									<div class="mm_table" data-table="{ '_height': 171 }">
+										<div class="mm_scroller">
+											<table>
+												<thead>
+													<tr>
+														<th scope="col"><div class="mm_table-item">순번/제휴순번</div></th>
+														<th scope="col"><div class="mm_table-item">품목ID</div></th>
+														<th scope="col"><div class="mm_table-item">상품명</div></th>
+														<th scope="col"><div class="mm_table-item">옵션</div></th>
+														<th scope="col"><div class="mm_table-item">판매가</div></th>
+														<th scope="col"><div class="mm_table-item">수량</div></th>
+														<th scope="col"><div class="mm_table-item">지불액</div></th>
+														<th scope="col"><div class="mm_table-item">환불금액</div></th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td><div class="mm_table-item">1</div></td>
+														<td><div class="mm_table-item">12311231</div></td>
+														<td><div class="mm_table-item"><p>[요하넥스]거위패딩B0A3JQ10-034</p></div></td>
+														<td><div class="mm_table-item">그레이 55</div></td>
+														<td><div class="mm_table-item"><span class="text_price">199000</span></div></td>
+														<td><div class="mm_table-item">1</div></td>
+														<td><div class="mm_table-item"><span class="text_price">179000</span></div></td>
+														<td><div class="mm_table-item"><span class="text_price">179000</span></div></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<!--// 상품 정보 -->
+
+								<!-- 클레임 상태 -->
+								<div class="mm_form">
+									<table>
+										<tbody>
+											<tr>
+												<th></th><td></td><th></th><td></td>
+											</tr>
+											<tr>
+												<th scope="row"><b>클레임 상태</b></th>
+												<td colspan="3">
+													<div class="mm_formmix-linked">
+														<div class="mm_select-list">
+															<ul>
+																<li>
+																	<div class="mm_form-select __select_xxs__">
+																		<label>
+																			<select data-select>
+																				<option>선택하세요</option>
+																			</select>
+																			<b class="text_selected"></b>
+																			<i class="ico_form-select"></i>
+																		</label>
+																	</div>
+																</li>
+																<li>
+																	<div class="mm_form-select __select_xs__">
+																		<label>
+																			<select data-select>
+																				<option>선택하세요</option>
+																			</select>
+																			<b class="text_selected"></b>
+																			<i class="ico_form-select"></i>
+																		</label>
+																	</div>
+																</li>
+															</ul>
+														</div>
+														<button type="button" class="mm_btn"><b>수정</b></button>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<!--// 클레임 상태 -->
+
+								<!-- 클레임 정보 -->
+								<div class="mm_formbox">
+									<!-- 폼 상단 -->
+									<div class="mm_formbox-unit">
+										<div class="mm_lside">
+											<a class="mm_btn" href="_popup_cancelModify.html" data-href="{ '_type': 'popup' }" title="새 창 열기"><b>수정</b></a>
+										</div>
+									</div>
+									<!--// 폼 상단 -->
+									<div class="mm_form">
+										<table>
+											<tbody>
+												<tr>
+													<th></th><td></td><th></th><td></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>환불유형</b></th>
+													<td><p>환불금액</p></td>
+													<th scope="row"><b>환불방법</b></th>
+													<td><p>네이버페이 부분환불</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>환불완료일시</b></th>
+													<td><p>-</p></td>
+													<th scope="row"><b>환불완료자</b></th>
+													<td><p>-</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>신청일시</b></th>
+													<td><p>2021-01-10 13:23:45</p></td>
+													<th scope="row"><b>신청사유</b></th>
+													<td><p>배송지연</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>신청자</b></th>
+													<td><p>관리자</p></td>
+													<th scope="row"><b>배송료 구분</b></th>
+													<td><p>초기 배송료 부과/착불 반품비</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>비용</b></th>
+													<td><p>-</p></td>
+													<th scope="row"><b>계좌번호</b></th>
+													<td><p>-</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>취소완료일시</b></th>
+													<td><p>2021-01-10 13:23:45</p></td>
+													<th scope="row"><b>취소완료자</b></th>
+													<td><p>관리자</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>이후 주문번호<br>&#40;취소 주문번호&#41;</b></th>
+													<td><p>159357123</p></td>
+													<th scope="row"><b>이후 주문 생성일시<br>&#40;환불 요청일시&#41;</b></th>
+													<td><p>2021-01-10 13:23:45</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>상담번호</b></th>
+													<td><p>78913456</p></td>
+													<th scope="row"><b>최근수정자</b></th>
+													<td><p>관리자</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>최근수정일시</b></th>
+													<td><p>2021-01-10 13:23:45</p></td>
+													<th scope="row"><b>상담등록</b></th>
+													<td><a class="mm_btn" href="_popup_counsellingRegister.html" data-href="{ '_type': 'popup' }" title="새 창 열기"><b>등록</b></a></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- 폼 하단 -->
+									<div class="mm_formbox-unit">
+										<div class="mm_lside">
+											<a class="mm_btn" href="_popup_cancelModify.html" data-href="{ '_type': 'popup' }" title="새 창 열기"><b>수정</b></a>
+										</div>
+									</div>
+									<!--// 폼 하단 -->
+								</div>
+								<!--// 클레임 정보 -->
+							</div>
+							<!--// 취소 -->
+
+							<!-- 반품 -->
+							<div class="m__info-group">
+								<!-- 상품 정보 -->
+								<div class="mm_tablebox">
+									<div class="mm_table" data-table="{ '_height': 171 }">
+										<div class="mm_scroller">
+											<table>
+												<thead>
+													<tr>
+														<th scope="col"><div class="mm_table-item">순번/제휴순번</div></th>
+														<th scope="col"><div class="mm_table-item">품목ID</div></th>
+														<th scope="col"><div class="mm_table-item">상품명</div></th>
+														<th scope="col"><div class="mm_table-item">옵션</div></th>
+														<th scope="col"><div class="mm_table-item">판매가</div></th>
+														<th scope="col"><div class="mm_table-item">수량</div></th>
+														<th scope="col"><div class="mm_table-item">지불액</div></th>
+														<th scope="col"><div class="mm_table-item">환불금액</div></th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td><div class="mm_table-item">1</div></td>
+														<td><div class="mm_table-item">12311231</div></td>
+														<td><div class="mm_table-item"><p>[요하넥스]거위패딩B0A3JQ10-034</p></div></td>
+														<td><div class="mm_table-item">그레이 55</div></td>
+														<td><div class="mm_table-item"><span class="text_price">199000</span></div></td>
+														<td><div class="mm_table-item">1</div></td>
+														<td><div class="mm_table-item"><span class="text_price">179000</span></div></td>
+														<td><div class="mm_table-item"><span class="text_price">179000</span></div></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<!--// 상품 정보 -->
+
+								<!-- 클레임 상태 -->
+								<div class="mm_form">
+									<table>
+										<tbody>
+											<tr>
+												<th></th><td></td><th></th><td></td>
+											</tr>
+											<tr>
+												<th scope="row"><b>클레임 상태</b></th>
+												<td colspan="3">
+													<div class="mm_formmix-linked">
+														<div class="mm_select-list">
+															<ul>
+																<li>
+																	<div class="mm_form-select __select_xxs__">
+																		<label>
+																			<select data-select>
+																				<option>선택하세요</option>
+																			</select>
+																			<b class="text_selected"></b>
+																			<i class="ico_form-select"></i>
+																		</label>
+																	</div>
+																</li>
+																<li>
+																	<div class="mm_form-select __select_xs__">
+																		<label>
+																			<select data-select>
+																				<option>선택하세요</option>
+																			</select>
+																			<b class="text_selected"></b>
+																			<i class="ico_form-select"></i>
+																		</label>
+																	</div>
+																</li>
+															</ul>
+														</div>
+														<button type="button" class="mm_btn"><b>수정</b></button>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<!--// 클레임 상태 -->
+
+								<!-- 클레임 정보 -->
+								<div class="mm_formbox">
+									<!-- 폼 상단 -->
+									<div class="mm_formbox-unit">
+										<div class="mm_lside">
+											<a class="mm_btn" href="_popup_returnModify.html" data-href="{ '_type': 'popup' }" title="새 창 열기"><b>수정</b></a>
+										</div>
+									</div>
+									<!--// 폼 상단 -->
+									<div class="mm_form">
+										<table>
+											<tbody>
+												<tr>
+													<th></th><td></td><th></th><td></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>환불유형</b></th>
+													<td><p>환불금액</p></td>
+													<th scope="row"><b>환불방법</b></th>
+													<td><p>네이버페이 부분환불</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>환불완료일시</b></th>
+													<td><p>-</p></td>
+													<th scope="row"><b>환불완료자</b></th>
+													<td><p>-</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>신청일시</b></th>
+													<td><p>2021-01-10 13:23:45</p></td>
+													<th scope="row"><b>신청사유</b></th>
+													<td><p>배송지연</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>신청자</b></th>
+													<td><p>관리자</p></td>
+													<th scope="row"><b>배송료 구분</b></th>
+													<td><p>초기 배송료 부과/착불 반품비</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>비용</b></th>
+													<td><p><span class="text_price">2,500</span>/<span class="text_price">2,500</span></p></td>
+													<th scope="row"><b>계좌번호</b></th>
+													<td><p>-</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>반품안심번호</b></th>
+													<td><p>-</p></td>
+													<th scope="row"><b>반품수거지 주소</b></th>
+													<td><p>-</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>반품방법</b></th>
+													<td><p>자동회수</p></td>
+													<th scope="row"><b>회수 송장번호</b></th>
+													<td><p>-</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>자동처리예정일</b></th>
+													<td><p>-</p></td>
+													<th scope="row"><b>보류일</b></th>
+													<td><p>-</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>반품완료일시</b></th>
+													<td><p>-</p></td>
+													<th scope="row"><b>재완료처리일시</b></th>
+													<td><p>-</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>보류사유</b></th>
+													<td><p>-</p></td>
+													<th scope="row"><b>반품완료자</b></th>
+													<td><p>-</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>재완료처리자</b></th>
+													<td><p>-</p></td>
+													<th scope="row"><b>이후 주문번호<br>&#40;반품 주문번호&#41;</b></th>
+													<td><p>-</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>초기배송료 업체정산</b></th>
+													<td><span class="text_price">2,500</span></td>
+													<th scope="row"><b>착불배송료 업체정산</b></th>
+													<td><span class="text_price">2,500</span></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>이후 주문 생성일시<br>&#40;환불 요청일시&#41;</b></th>
+													<td><p>2021-01-10 13:23:45</p></td>
+													<th scope="row"><b>상담번호</b></th>
+													<td><p>789123456</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>최근수정자</b></th>
+													<td><p>관리자</p></td>
+													<th scope="row"><b>최근수정일시</b></th>
+													<td><p>2021-01-10 13:23:45</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>상담등록</b></th>
+													<td colspan="3"><a class="mm_btn" href="_popup_counsellingRegister.html" data-href="{ '_type': 'popup' }" title="새 창 열기"><b>등록</b></a></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- 폼 하단 -->
+									<div class="mm_formbox-unit">
+										<div class="mm_lside">
+											<a class="mm_btn" href="_popup_returnModify.html" data-href="{ '_type': 'popup' }" title="새 창 열기"><b>수정</b></a>
+										</div>
+									</div>
+									<!--// 폼 하단 -->
+								</div>
+								<!--// 클레임 정보 -->
+							</div>
+							<!--// 반품 -->
+
+							<!-- 교환 -->
+							<div class="m__info-group">
+								<!-- 상품 정보 -->
+								<div class="mm_tablebox">
+									<div class="mm_table" data-table="{ '_height': 171 }">
+										<div class="mm_scroller">
+											<table>
+												<thead>
+													<tr>
+														<th scope="col"><div class="mm_table-item">순번/제휴순번</div></th>
+														<th scope="col"><div class="mm_table-item">품목ID</div></th>
+														<th scope="col"><div class="mm_table-item">상품명</div></th>
+														<th scope="col"><div class="mm_table-item">옵션</div></th>
+														<th scope="col"><div class="mm_table-item">판매가</div></th>
+														<th scope="col"><div class="mm_table-item">수량</div></th>
+														<th scope="col"><div class="mm_table-item">지불액</div></th>
+														<th scope="col"><div class="mm_table-item">환불금액</div></th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td><div class="mm_table-item">1</div></td>
+														<td><div class="mm_table-item">12311231</div></td>
+														<td><div class="mm_table-item"><p>[요하넥스]거위패딩B0A3JQ10-034</p></div></td>
+														<td><div class="mm_table-item">그레이 55</div></td>
+														<td><div class="mm_table-item"><span class="text_price">199000</span></div></td>
+														<td><div class="mm_table-item">1</div></td>
+														<td><div class="mm_table-item"><span class="text_price">179000</span></div></td>
+														<td><div class="mm_table-item"><span class="text_price">179000</span></div></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<!--// 상품 정보 -->
+
+								<!-- 교환 상태 -->
+								<div class="mm_form">
+									<table>
+										<tbody>
+											<tr>
+												<th></th><td></td><th></th><td></td>
+											</tr>
+											<tr>
+												<th scope="row"><b>교환 상태</b></th>
+												<td colspan="3">
+													<div class="mm_formmix-linked">
+														<div class="mm_select-list">
+															<ul>
+																<li>
+																	<div class="mm_form-select __select_xxs__">
+																		<label>
+																			<select data-select disabled>
+																				<option>신청</option>
+																			</select>
+																			<b class="text_selected"></b>
+																			<i class="ico_form-select"></i>
+																		</label>
+																	</div>
+																</li>
+																<li>
+																	<div class="mm_form-select __select_xs__">
+																		<label>
+																			<select data-select>
+																				<option>선택하세요</option>
+																			</select>
+																			<b class="text_selected"></b>
+																			<i class="ico_form-select"></i>
+																		</label>
+																	</div>
+																</li>
+															</ul>
+														</div>
+														<button type="button" class="mm_btn"><b>수정</b></button>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<!--// 교환 상태 -->
+
+								<!-- 클레임 정보 -->
+								<div class="mm_formbox">
+									<!-- 폼 상단 -->
+									<div class="mm_formbox-unit">
+										<div class="mm_lside">
+											<a class="mm_btn" href="_popup_exchangeModify.html" data-href="{ '_type': 'popup' }" title="새 창 열기"><b>수정</b></a>
+										</div>
+									</div>
+									<!--// 폼 상단 -->
+									<div class="mm_form">
+										<table>
+											<tbody>
+												<tr>
+													<th></th><td></td><th></th><td></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>교환접수일시</b></th>
+													<td><p>2021-01-10 13:12:34</p></td>
+													<th scope="row"><b>교환옵션</b></th>
+													<td><p>네이비 55</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>교환사유</b></th>
+													<td><p>고객단순변심</p></td>
+													<th scope="row"><b>교환접수자</b></th>
+													<td><p>관리자명</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>회수방법</b></th>
+													<td><p>자동회수</p></td>
+													<th scope="row"><b>회수송장</b></th>
+													<td>
+														<p>123123123123 / CJ대한통운</p>
+														<a class="mm_btn __btn_line_light__" href="#" target="_blank" title="새 창 열림"><b>배송추적</b></a>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row"><b>교환배송비</b></th>
+													<td><span class="text_price">0</span></td>
+													<th scope="row"><b>교환배송비 결제</b></th>
+													<td><p>협력사와 직접 결제</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>교환배송비 환불</b></th>
+													<td><p>-</p></td>
+													<th scope="row"><b>교환발송일시</b></th>
+													<td><p>-</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>교환발송자</b></th>
+													<td><p>-</p></td>
+													<th scope="row"><b>교환발송택배 송장번호</b></th>
+													<td>
+														<p>123123123123 / CJ대한통운</p>
+														<a class="mm_btn __btn_line_light__" href="#" target="_blank" title="새 창 열림"><b>배송추적</b></a>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row"><b>교환회수 전<br>보류일시</b></th>
+													<td><p>2021-01-10 13:23:45</p></td>
+													<th scope="row"><b>교환회수 전<br>보류설정자</b></th>
+													<td><p>관리자</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>교환회수 전<br>보류사유</b></th>
+													<td><p>보류사유 노출</p></td>
+													<th scope="row"><b>교환회수 전<br>보류해제일시</b></th>
+													<td><p>2021-01-10 13:23:45</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>교환회수 전<br>보류해제자</b></th>
+													<td><p>관리자</p></td>
+													<th scope="row"><b>교환회수 후<br>보류일시</b></th>
+													<td><p>2021-01-10 13:23:45</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>교환회수 후<br>보류설정자</b></th>
+													<td><p>관리자</p></td>
+													<th scope="row"><b>교환회수 후<br>보류사유</b></th>
+													<td><p>보류사유 노출</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>교환회수 후<br>보류해제일시</b></th>
+													<td><p>2021-01-10 13:23:45</p></td>
+													<th scope="row"><b>교환회수 후<br>보류해제자</b></th>
+													<td><p>관리자</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>이후 주문번호<br>&#40;교환 주문번호&#41;</b></th>
+													<td><p>-</p></td>
+													<th scope="row"><b>이후 주문 생성일시<br>&#40;교환 완료일시&#41;</b></th>
+													<td><p>2021-01-10 13:23:45</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>최근수정자</b></th>
+													<td><p>관리자</p></td>
+													<th scope="row"><b>최근수정일시</b></th>
+													<td><p>2021-01-10 13:23:45</p></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>상담번호</b></th>
+													<td><p>789123456</p></td>
+													<th scope="row"><b>상담등록</b></th>
+													<td><a class="mm_btn" href="_popup_counsellingRegister.html" data-href="{ '_type': 'popup' }" title="새 창 열기"><b>등록</b></a></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- 폼 하단 -->
+									<div class="mm_formbox-unit">
+										<div class="mm_lside">
+											<a class="mm_btn" href="_popup_exchangeModify.html" data-href="{ '_type': 'popup' }" title="새 창 열기"><b>수정</b></a>
+										</div>
+									</div>
+									<!--// 폼 하단 -->
+								</div>
+								<!--// 클레임 정보 -->
+							</div>
+							<!--// 교환 -->
+							<input hidden>
+						</form>
+					</div>
+					<!--// 본문 내용 -->
+
+					<!-- 현재 페이지 스크립트 -->
+					<!-- <script src="../js/.js"></script> -->
+				</div>
+				<!--// 본문 -->
+			</div>
+			<!--// 내용 -->
+		</div>
+		<!--// 화면 -->
+	</div>
+</body>
+</html>

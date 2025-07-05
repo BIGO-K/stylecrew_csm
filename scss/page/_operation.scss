@@ -1,0 +1,41 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../setting/const';
+@use '../setting/var';
+@use '../helper/mixin';
+
+/**
+ * 운영 관리
+**/
+
+
+//< 운영 관리 공통
+.m_operation- {
+	// 상세보기
+	&detail {
+		&.mm_form {
+			margin-top: 100px;
+
+			td {
+				> a:not(.mm_btn) {
+					@include mixin.font(#000 400);
+
+					&::after {
+						border-color: #666;
+					}
+				}
+			}
+		}
+	}
+
+	// 등록/수정
+	&form {
+		.mm_formmix-linked {
+			+ .mm_note {
+				margin-top: 10px;
+			}
+		}
+	}
+}
+//> 운영 관리 공통

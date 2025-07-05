@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko" class="__layout_popup__">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no, address=no, email=no">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
+
+	<!-- 소셜태그 -->
+	<meta property="og:title" content="">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="">
+	<meta property="og:site_name" content="">
+	<!--// 소셜태그 -->
+
+	<title>(팝업) 검색 회원 정보 - 스타일크루 CSAdmin</title>
+
+	<!-- 공통 css -->
+	<link rel="stylesheet" href="../css/lib.css">
+	<link rel="stylesheet" href="../css/app.css">
+	<!-- <link rel="stylesheet" data-css="{ '_href': '../css/font.css' }"> -->
+
+	<!-- (D) 폴리필/라이브러리는 요청을 줄이기 위해 combind + minify를 적용해주세요. -->
+	<!-- 폴리필/라이브러리 스크립트 -->
+	<script src="../js/polyfill/babel-polyfill-7.12.1.min.js"></script>
+	<script src="../js/polyfill/dom4-2.1.5.min.js"></script>
+	<script src="../js/polyfill/fetch.umd-3.6.2.min.js"></script>
+	<script src="../js/polyfill/intersection-observer-0.12.0.min.js"></script>
+	<script src="../js/polyfill/resize-observer-1.5.1.min.js"></script>
+	<script src="../js/lib/lodash-4.17.21.min.js"></script>
+	<script src="../js/lib/axios-0.21.1.min.js"></script>
+	<script src="../js/lib/load-image.all-5.14.0.min.js"></script>
+	<script src="../js/lib/sortable-1.13.0.min.js"></script>
+	<script src="../js/lib/gsap-3.6.1/gsap.min.js"></script>
+	<script src="../js/lib/jquery-3.6.0.min.js"></script>
+	<script src="../js/lib/editor-2.23.0/trumbowyg.min.js"></script>
+	<script src="../js/lib/editor-2.23.0/plugins/colors/trumbowyg.colors.js"></script>
+	<script src="../js/lib/editor-2.23.0/plugins/fontsize/trumbowyg.fontsize.min.js"></script>
+	<script src="../js/lib/editor-2.23.0/plugins/table/trumbowyg.table.min.js"></script>
+
+	<!-- 공통 스크립트 -->
+	<script src="../js/app_common.js"></script>
+	<script src="../js/app_page-common.js"></script>
+
+	<!-- (D) 페이지 전용 스크립트는 .mm_page-content 하단에 넣어주세요. -->
+</head>
+<body>
+	<div id="mm_app" class="mm_app">
+		<!-- 스킵 -->
+		<nav class="mm_skip">
+			<ul>
+				<li><a href="#mm_body" data-href="anchor">본문바로가기</a></li>
+			</ul>
+		</nav>
+		<!-- 스킵 -->
+
+		<!-- 화면 -->
+		<div class="mm_view">
+			<!-- 헤더 -->
+			<div class="mm_header">
+				<h1><b>검색 회원 정보</b></h1>
+				<button type="button" class="btn_popup-close" onclick="window.close();return false;"><i class="ico_close-popup"></i><b class="mm_ir-blind">팝업닫기</b></button>
+			</div>
+			<!--// 헤더 -->
+
+			<!-- 내용 -->
+			<div id="mm_body" class="mm_page">
+				<!-- 본문 -->
+				<!--
+					(D) 실제 내용을 추가하는 부분입니다.
+					팝업은 html 요소에 '__layout_popup__' 클래스를 추가합니다.
+				-->
+				<div class="mm_page-content">
+					<!-- 본문 내용 -->
+					<div class="mm_container">
+						<div class="mm_tablebox">
+							<!-- 목록 -->
+							<div class="mm_table" data-table="{ '_height': 481 }">
+								<div class="mm_scroller">
+									<table>
+										<colgroup>
+											<col style="width: 150px;">
+											<col>
+											<col>
+											<col>
+										</colgroup>
+										<thead>
+											<tr>
+												<th scope="col"><div class="mm_table-item">고객명</div></th>
+												<th scope="col"><div class="mm_table-item">아이디</div></th>
+												<th scope="col"><div class="mm_table-item">휴대폰 번호</div></th>
+												<th scope="col"><div class="mm_table-item">최근 주문일시</div></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td><div class="mm_table-item"><a href="_popup_customerOrderList.html" data-href="{ '_type': 'popup' }" title="새 창 열림"><b>홍길동</b></a></div></td>
+												<td><div class="mm_table-item"><p><a href="_popup_customerOrderList.html" data-href="{ '_type': 'popup' }" title="새 창 열림"><b>hong1</b></a></p></div></td>
+												<td><div class="mm_table-item"><a href="_popup_customerOrderList.html" data-href="{ '_type': 'popup' }" title="새 창 열림"><b>01012345678</b></a></div></td>
+												<td><div class="mm_table-item">2020-01-01 15:25:36</div></td>
+											</tr>
+											<tr>
+												<td><div class="mm_table-item"><a href="_popup_customerOrderList.html" data-href="{ '_type': 'popup' }" title="새 창 열림"><b>홍길동</b></a></div></td>
+												<td><div class="mm_table-item"><p><a href="_popup_customerOrderList.html" data-href="{ '_type': 'popup' }" title="새 창 열림"><b>hong@email.com</b></a></p></div></td>
+												<td><div class="mm_table-item"><a href="_popup_customerOrderList.html" data-href="{ '_type': 'popup' }" title="새 창 열림"><b>01012345678</b></a></div></td>
+												<td><div class="mm_table-item">2020-01-01 15:25:36</div></td>
+											</tr>
+											<tr>
+												<td><div class="mm_table-item"><a href="_popup_customerOrderList.html" data-href="{ '_type': 'popup' }" title="새 창 열림"><b>홍길동</b></a></div></td>
+												<td><div class="mm_table-item"><p><a href="_popup_customerOrderList.html" data-href="{ '_type': 'popup' }" title="새 창 열림"><b>hong123@naver.com</b></a></p></div></td>
+												<td><div class="mm_table-item"><a href="_popup_customerOrderList.html" data-href="{ '_type': 'popup' }" title="새 창 열림"><b>01012345678</b></a></div></td>
+												<td><div class="mm_table-item">2020-01-01 15:25:36</div></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<!--// 목록 -->
+						</div>
+
+						<!-- 유의사항 -->
+						<div class="mm_note">
+							<ul>
+								<li><strong>최근 2개월 내</strong> 주문 정보가 존재하는 회원 리스트가 노출 됩니다.</li>
+							</ul>
+						</div>
+						<!--// 유의사항 -->
+					</div>
+					<!--// 본문 내용 -->
+
+					<!-- 현재 페이지 스크립트 -->
+					<!-- <script src="../js/.js"></script> -->
+				</div>
+				<!--// 본문 -->
+			</div>
+			<!--// 내용 -->
+		</div>
+		<!--// 화면 -->
+	</div>
+</body>
+</html>

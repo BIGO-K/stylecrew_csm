@@ -1,0 +1,97 @@
+@charset 'utf-8';
+
+/**
+ * 헬퍼
+ * 전역변수
+ * color: primary, secondary, tertiary, positive, negative, background, line, text, icon, tag...
+ * font-size: body, button, tag
+**/
+
+
+//< 컬러
+// 종류: main, primary, secondary, tertiary, positive, negative, grade, text
+// 단계: lightest, light, base, dark, darkest
+
+// 메인(로고 등)
+$color_main_base: #13c2bd; // 프로젝트 메인 컬러 (gnb등 사이트 구분을 위해 사용)
+
+// 포인트
+$color_primary_base: #ec1b3c;
+$color_secondary_base: #fd6a25;
+$color_tertiary_base: #107c41;
+
+// 상태(긍정/부정)
+$color_negative_base: $color_primary_base;
+
+// 기본 폰트
+$color_text_base: #000;
+//> 컬러
+
+//< 폰트
+// 종류
+$fontFamily_base: 'Malgun Gothic', 'Apple SD 산돌고딕 Neo', sans-serif;// ie에서 31자 이상 적용 안됨
+// $fontFamily_latin: 'Roboto', sans-serif;
+$fontFamily_password: $fontFamily_base;/*monospace, cursive, sans-serif;*/
+// $fontFamily_special: 'Jalnan', 'GothicA1', sans-serif;
+
+// 경로
+// $fontPath: '../font/';// local
+// $fontPath: 'https://image.domain.co.kr/data/font/';// CDN
+//> 폰트
+
+//< 최소 사이즈
+$minWidth_pc: 1160px;
+$minWidth_base: $minWidth_pc;
+$minWidth_extend: $minWidth_base + 200px;// 좌/우 날개배너 확장
+//> 최소 사이즈
+
+//< 레이아웃
+// 단계: min, base, extend
+
+// header
+$height_header_base: 88px;
+
+// footer
+$height_footer_base: 45px;
+
+// sidebar
+$width_sidebar_base: 210px;
+$width_sidebar_min: 50px;
+
+// toolbar
+$height_toolbar_base: 53px;
+
+// popup
+$header_popup_base: 45px;
+$width_popup_base: 950px;
+$width_popup_xs: 400px;
+$width_popup_sm: 700px;
+$width_popup_lg: 1200px;
+//> 레이아웃
+
+//< 폼
+// 단계: sm, base, lg
+
+// 기본 형태
+$borderColor_form_base: #d5d5d5;
+$fontSize_form_text_base: 12px;
+$fontSize_form_text_lg: 12px;
+
+// 텍스트 인풋
+$height_form_text_base: 23px;
+$height_form_text_lg: 34px;
+
+// 체크박스
+$height_form_check_base: 12px;
+$fontSize_form_check_base: 14px;
+
+// 라디오
+$height_form_radio_base: 12px;
+$fontSize_form_radio_base: 12px;
+
+// 셀렉트
+$height_form_select_base: 23px;
+$height_form_select_lg: 34px;
+$fontSize_form_select_base: 12px;
+$fontSize_form_select_sm: 12px;
+//> 폼

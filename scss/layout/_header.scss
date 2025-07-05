@@ -1,0 +1,99 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../setting/const';
+@use '../setting/var';
+@use '../helper/mixin';
+
+/**
+ * 헤더
+**/
+
+
+//< 헤더영역
+.mm_header {
+	position: absolute;
+	z-index: const.$zIndex_header;
+	top: 0;
+	right: 0;
+	left: 0;
+	height: var.$height_header_base;
+
+	h1 {
+		position: absolute;
+		z-index: 1;
+		top: 18px;
+		left: 50%;
+		@include mixin.transform(translateX(-50%));
+		cursor: pointer;
+
+		a {
+			width: 244px;
+			height: 17px;
+			@include mixin.background(url('https://image.stylecrew.co.kr/mall/publish/csm/common/logo.png') '0 0' no-repeat);
+		}
+	}
+
+	&-quick {
+		height: 54px;
+		@include mixin.clearfix;
+
+		li {
+			float: left;
+		}
+
+		.mm_lside {
+			position: absolute;
+			left: 33px;
+
+			a {
+				margin: 18px 1px;
+				padding: 0 6px;
+				height: 18px;
+				@include mixin.font(#666 '11px/18px');
+
+				&.btn_shop {
+					border: 1px solid #d5d5d5;
+					background-color: #eee;
+					@include mixin.font(#555 '/16px');
+
+					.ico_quick-shop {
+						margin: 3px 3px 0 1px;
+					}
+
+					.__ie11 &, .__edge & { line-height: 14px; }
+				}
+
+				.ico_link-pw {
+					margin: 5px 0 0 2px;
+				}
+
+				.__ie11 &, .__edge & { line-height: 16px; }
+			}
+		}
+
+		.mm_rside {
+			position: absolute;
+			right: 38px;
+
+			li {
+				> .mm_btn {
+					margin: 18px 2px;
+					padding: 1px 6px 2px;
+					height: auto;
+					@include mixin.font('11px/1.4');
+				}
+
+				> p {
+					margin-right: 6px;
+					@include mixin.font(#666 700 '12px/54px');
+
+					a {
+						padding: 0 4px 0 3px;
+					}
+				}
+			}
+		}
+	}
+}
+//> 헤더영역

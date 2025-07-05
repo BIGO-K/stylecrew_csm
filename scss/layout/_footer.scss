@@ -1,0 +1,96 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../setting/const';
+@use '../setting/var';
+@use '../helper/mixin';
+
+/**
+ * 푸터
+**/
+
+
+//< 푸터영역
+.mm_footer {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: var.$height_footer_base;
+	border-top: 1px solid #eee;
+	background-color: #f9f9f9;
+	@include mixin.clearfix;
+
+	.mm_lside {
+		position: absolute;
+		left: 33px;
+
+		h6 {
+			margin-top: 15px;
+			width: 187px;
+			height: 13px;
+			@include mixin.background(url('https://image.stylecrew.co.kr/mall/publish/csm/common/logo.png') '0 -19px' no-repeat);
+		}
+	}
+
+	.mm_rside {
+		position: absolute;
+		right: 40px;
+
+		> *:nth-child(n+2) {
+			margin-left: 2px;
+		}
+
+		.mm_btnbox {
+			margin-top: 11px;
+
+			.mm_btn {
+				.image_logo {
+					margin-top: 6px;
+					@include mixin.background('0 0/contain' no-repeat);
+				}
+
+				&.btn_fashionplus-scm {
+					.image_logo {
+						width: 80px;
+						height: 10px;
+						background-image: url('https://image.stylecrew.co.kr/mall/publish/csm/common/logo_fashionplusscm.png');
+					}
+				}
+
+				&.btn_scm {
+					.image_logo {
+						width: 123px;
+						height: 11px;
+						background-image: url('https://image.stylecrew.co.kr/mall/publish/csm/common/logo_stylecrewscm.png');
+					}
+				}
+
+				&.btn_fashionplus {
+					.image_logo {
+						width: 53px;
+						height: 11px;
+						background-image: url('https://image.stylecrew.co.kr/mall/publish/csm/common/logo_fashionplus.png');
+					}
+				}
+
+				&.btn_moda {
+					.image_logo {
+						width: 50px;
+						height: 10px;
+						background-image: url('https://image.stylecrew.co.kr/mall/publish/csm/common/logo_moda.png');
+					}
+				}
+
+				&.btn_stylecrew {
+					.image_logo {
+						width: 94px;
+						height: 11px;
+						background-image: url('https://image.stylecrew.co.kr/mall/publish/csm/common/logo_stylecrew.svg');
+					}
+				}
+			}
+		}
+	}
+}
+//> 푸터영역

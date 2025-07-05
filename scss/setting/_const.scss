@@ -1,0 +1,36 @@
+@charset 'utf-8';
+
+/**
+ * 코어
+ * 전역변수
+**/
+
+
+//< font
+$fontSize_base: 10px;
+//> font
+
+//< z-index
+$zIndex_bom: 3300;
+$zIndex_loading: 3200;
+$zIndex_most: 3000;
+$zIndex_skip: 3100;
+$zIndex_modal: 2100;
+$zIndex_popup: 2000;
+$zIndex_header: 1200;// 1000: mobile
+$zIndex_toolbar: 1100;
+$zIndex_sidebar: 1000;// 1200: mobile
+$zIndex_floating: 100;
+$zIndex_alert: 10;// 텍스트 경고
+//> z-index
+
+//< transition sec
+$time_base: 0.4s;
+$time_fast: 0.2s;
+$time_faster: 0.1s;
+$time_slow: 0.7s;
+$time_slower: 1s;
+//> transition sec
+
+// 1px transpatent gif
+$image_empty: 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';

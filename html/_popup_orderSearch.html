@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ko" class="__layout_popup__">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no, address=no, email=no">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
+
+	<!-- 소셜태그 -->
+	<meta property="og:title" content="">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="">
+	<meta property="og:site_name" content="">
+	<!--// 소셜태그 -->
+
+	<title>(팝업) 원 주문 검색 - 스타일크루 CSAdmin</title>
+
+	<!-- 공통 css -->
+	<link rel="stylesheet" href="../css/lib.css">
+	<link rel="stylesheet" href="../css/app.css">
+	<!-- <link rel="stylesheet" data-css="{ '_href': '../css/font.css' }"> -->
+
+	<!-- (D) 폴리필/라이브러리는 요청을 줄이기 위해 combind + minify를 적용해주세요. -->
+	<!-- 폴리필/라이브러리 스크립트 -->
+	<script src="../js/polyfill/babel-polyfill-7.12.1.min.js"></script>
+	<script src="../js/polyfill/dom4-2.1.5.min.js"></script>
+	<script src="../js/polyfill/fetch.umd-3.6.2.min.js"></script>
+	<script src="../js/polyfill/intersection-observer-0.12.0.min.js"></script>
+	<script src="../js/polyfill/resize-observer-1.5.1.min.js"></script>
+	<script src="../js/lib/lodash-4.17.21.min.js"></script>
+	<script src="../js/lib/axios-0.21.1.min.js"></script>
+	<script src="../js/lib/load-image.all-5.14.0.min.js"></script>
+	<script src="../js/lib/sortable-1.13.0.min.js"></script>
+	<script src="../js/lib/gsap-3.6.1/gsap.min.js"></script>
+	<script src="../js/lib/jquery-3.6.0.min.js"></script>
+	<script src="../js/lib/editor-2.23.0/trumbowyg.min.js"></script>
+	<script src="../js/lib/editor-2.23.0/plugins/colors/trumbowyg.colors.js"></script>
+	<script src="../js/lib/editor-2.23.0/plugins/fontsize/trumbowyg.fontsize.min.js"></script>
+	<script src="../js/lib/editor-2.23.0/plugins/table/trumbowyg.table.min.js"></script>
+
+	<!-- 공통 스크립트 -->
+	<script src="../js/app_common.js"></script>
+	<script src="../js/app_page-common.js"></script>
+
+	<!-- (D) 페이지 전용 스크립트는 .mm_page-content 하단에 넣어주세요. -->
+</head>
+<body>
+	<div id="mm_app" class="mm_app">
+		<!-- 스킵 -->
+		<nav class="mm_skip">
+			<ul>
+				<li><a href="#mm_body" data-href="anchor">본문바로가기</a></li>
+			</ul>
+		</nav>
+		<!-- 스킵 -->
+
+		<!-- 화면 -->
+		<div class="mm_view">
+			<!-- 헤더 -->
+			<div class="mm_header">
+				<h1><b>원 주문 검색</b></h1>
+				<button type="button" class="btn_popup-close" onclick="window.close();return false;"><i class="ico_close-popup"></i><b class="mm_ir-blind">팝업닫기</b></button>
+			</div>
+			<!--// 헤더 -->
+
+			<!-- 내용 -->
+			<div id="mm_body" class="mm_page">
+				<!-- 본문 -->
+				<!--
+					(D) 실제 내용을 추가하는 부분입니다.
+					팝업은 html 요소에 '__layout_popup__' 클래스를 추가합니다.
+				-->
+				<div class="mm_page-content">
+					<!-- 본문 내용 -->
+					<div class="mm_container">
+						<!-- 주문 목록 -->
+						<div class="mm_tablebox">
+							<!-- 목록 상단 -->
+							<div class="mm_tablebox-caption">
+								<div class="mm_rside">
+									<div class="mm_form-select __select_list__">
+										<label>
+											<select data-select>
+												<option>20개 보기</option>
+												<option>40개 보기</option>
+												<option>60개 보기</option>
+												<option>80개 보기</option>
+												<option>100개 보기</option>
+											</select>
+											<b class="text_selected"></b>
+											<i class="ico_form-select"></i>
+										</label>
+									</div>
+								</div>
+							</div>
+							<!--// 목록 상단 -->
+
+							<!-- 목록 -->
+							<div class="mm_table" data-table>
+								<div class="mm_scroller">
+									<table>
+										<thead>
+											<tr>
+												<th class="__table-fixed" scope="col"><div class="mm_table-item">선택</div></th>
+												<th scope="col"><div class="mm_table-item">주문번호</div></th>
+												<th scope="col"><div class="mm_table-item">순번</div></th>
+												<th scope="col"><div class="mm_table-item">CS 진행상태</div></th>
+												<th scope="col"><div class="mm_table-item">지불방법</div></th>
+												<th scope="col"><div class="mm_table-item">제휴 주문번호</div></th>
+												<th scope="col"><div class="mm_table-item">구매자</div></th>
+												<th scope="col"><div class="mm_table-item">결제 완료일시</div></th>
+												<th scope="col"><div class="mm_table-item">상품명</div></th>
+												<th scope="col"><div class="mm_table-item">옵션</div></th>
+												<th scope="col"><div class="mm_table-item">수량</div></th>
+												<th scope="col"><div class="mm_table-item">판매가</div></th>
+												<th scope="col"><div class="mm_table-item">할인 적용가</div></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td class="__table-fixed"><div class="mm_table-item"><button type="button" class="mm_btn"><b>선택</b></button></div></td>
+												<td><div class="mm_table-item">3249534</div></td>
+												<td><div class="mm_table-item">1</div></td>
+												<td><div class="mm_table-item">배송완료</div></td>
+												<td><div class="mm_table-item">네이버페이</div></td>
+												<td><div class="mm_table-item"></div></td>
+												<td><div class="mm_table-item">이지금</div></td>
+												<td><div class="mm_table-item">2021-01-01 13:52:32</div></td>
+												<td><div class="mm_table-item"><p>[요하넥스]거위패딩 ANKS23D_BK44</p></div></td>
+												<td><div class="mm_table-item">그레이44</div></td>
+												<td><div class="mm_table-item">1</div></td>
+												<td><div class="mm_table-item"><span class="text_price">199000</span></div></td>
+												<td><div class="mm_table-item"><span class="text_price">179000</span></div></td>
+											</tr>
+											<tr>
+												<td class="__table-fixed"><div class="mm_table-item"><button type="button" class="mm_btn"><b>선택</b></button></div></td>
+												<td><div class="mm_table-item">3249534</div></td>
+												<td><div class="mm_table-item">2</div></td>
+												<td><div class="mm_table-item">배송완료</div></td>
+												<td><div class="mm_table-item">네이버페이</div></td>
+												<td><div class="mm_table-item"></div></td>
+												<td><div class="mm_table-item">이지금</div></td>
+												<td><div class="mm_table-item">2021-01-01 13:52:32</div></td>
+												<td><div class="mm_table-item"><p>르젠 남여공용 쿨론원단 기능성 쿨링 반팔티 1+1 (LNHT1865GJ_2PACK)</p></div></td>
+												<td><div class="mm_table-item">그레이44</div></td>
+												<td><div class="mm_table-item">1</div></td>
+												<td><div class="mm_table-item"><span class="text_price">39900</span></div></td>
+												<td><div class="mm_table-item"><span class="text_price">29900</span></div></td>
+											</tr>
+											<tr>
+												<td class="__table-fixed"><div class="mm_table-item"><button type="button" class="mm_btn"><b>선택</b></button></div></td>
+												<td><div class="mm_table-item">3249534</div></td>
+												<td><div class="mm_table-item">3</div></td>
+												<td><div class="mm_table-item">교환배송완료</div></td>
+												<td><div class="mm_table-item">네이버페이</div></td>
+												<td><div class="mm_table-item"></div></td>
+												<td><div class="mm_table-item">이지금</div></td>
+												<td><div class="mm_table-item">2021-01-01 13:52:32</div></td>
+												<td><div class="mm_table-item"><p>[꼼빠니아]슬림핏 긴팔 티셔츠-IC8F7WTT900</p></div></td>
+												<td><div class="mm_table-item">블랙 FREE</div></td>
+												<td><div class="mm_table-item">1</div></td>
+												<td><div class="mm_table-item"><span class="text_price">99000</span></div></td>
+												<td><div class="mm_table-item"><span class="text_price">79000</span></div></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<!--// 목록 -->
+
+							<!-- (D) 주문 목록이 없을 경우 아래 내용없음 영역을 노출합니다. -->
+							<!-- <div class="mm_table" data-table>
+								<div class="mm_table-none">
+									<p>검색된 결과가 없습니다</p>
+								</div>
+							</div> -->
+
+							<!-- 페이지네이션 -->
+							<!-- (D) 현재 페이지의 메뉴에 '__page-on' 클래스와 '선택됨' 타이틀을 추가합니다. -->
+							<div class="mm_pagination">
+								<div class="mm_inline">
+									<ol>
+										<li><a class="__page-on" href="#" title="선택됨"><b>1</b></a></li>
+										<li><a href="#"><b>2</b></a></li>
+										<li><a href="#"><b>3</b></a></li>
+										<li><a href="#"><b>4</b></a></li>
+										<li><a href="#"><b>5</b></a></li>
+									</ol>
+									<button type="button" class="btn_control-first" onclick="mm.link('')" disabled><i class="ico_page-first"></i><b class="mm_ir-blind">처음</b></button>
+									<button type="button" class="btn_control-prev" onclick="mm.link('')" disabled><i class="ico_page-prev"></i><b class="mm_ir-blind">이전</b></button>
+									<button type="button" class="btn_control-next" onclick="mm.link('')"><i class="ico_page-next"></i><b class="mm_ir-blind">다음</b></button>
+									<button type="button" class="btn_control-last" onclick="mm.link('')"><i class="ico_page-last"></i><b class="mm_ir-blind">마지막</b></button>
+								</div>
+								<div class="mm_pagination-jump">
+									<div class="mm_formmix-linked">
+										<div class="mm_form-text">
+											<label>
+												<input type="text" class="textfield" data-text><i class="bg_text"></i>
+												<span class="text_placeholder">숫자</span>
+											</label>
+										</div>
+										<button type="button" class="btn_jump"><b class="mm_ir-blind">이동</b></button>
+										<p class="text_linked">of 10<strong>(1,125 items)</strong></p>
+									</div>
+								</div>
+							</div>
+							<!--// 페이지네이션 -->
+						</div>
+						<!--// 주문 목록 -->
+					</div>
+					<!--// 본문 내용 -->
+
+					<!-- 현재 페이지 스크립트 -->
+					<!-- <script src="../js/.js"></script> -->
+				</div>
+				<!--// 본문 -->
+			</div>
+			<!--// 내용 -->
+		</div>
+		<!--// 화면 -->
+	</div>
+</body>
+</html>

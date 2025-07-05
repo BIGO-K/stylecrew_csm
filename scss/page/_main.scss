@@ -1,0 +1,189 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../setting/const';
+@use '../setting/var';
+@use '../helper/mixin';
+
+/**
+ * 메인 탭구조, 대시보드
+**/
+
+
+// 탭구조
+.m_main-lately {
+	height: 100%;
+
+	li {
+		display: none;
+		height: 100%;
+
+		&.__lately-on {
+			display: block;
+		}
+	}
+
+	.m_main-latelyframe {
+		width: 100% !important;
+		height: 100% !important;
+	}
+}
+
+// 대시보드
+.m_main- {
+	// 게시판
+	&notice {
+		padding-top: 25px;
+		@include mixin.clearfix();
+
+		> * {
+			position: relative;
+			width: calc(50% - 10px);
+
+			> .btn_more {
+				position: absolute;
+				top: 7px;
+				right: 0;
+			}
+
+			.mm_table {
+				.mm_table-item {
+					a:not(.mm_btn) {
+						color: #000;
+					}
+				}
+			}
+		}
+
+		.mm_table-none {
+			height: 169px;
+		}
+	}
+
+	// 차트
+	&chart {
+		position: relative;
+		margin-top: 29px;
+
+		.mm_heading {
+			border-bottom: 1px solid #666;
+		}
+
+		&-switch {
+			position: absolute;
+			top: 40px;
+			left: 50%;
+			@include mixin.font(#999 '0/1' center);
+			@include mixin.transform(translateX(-50%));
+
+			> button {
+				position: relative;
+				width: 44px;
+				height: 23px;
+				background-color: #eee;
+				@include mixin.font('12px/23px');
+
+				&::after {
+					position: absolute;
+					z-index: 1;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					left: 0;
+					border: 1px solid #c7c7c7;
+					content: '';
+				}
+
+				&:first-child,
+				&:first-child::after {
+					border-top-left-radius: 11px;
+					border-bottom-left-radius: 11px;
+				}
+
+				&:nth-child(n+2) {
+					margin-left: -1px;
+				}
+
+				&:last-child,
+				&:last-child::after {
+					border-top-right-radius: 11px;
+					border-bottom-right-radius: 11px;
+				}
+
+				&.__switch-on {
+					background-color: #fff;
+					color: #333;
+
+					&::after {
+						z-index: 2;
+						border-color: #555;
+					}
+				}
+			}
+		}
+
+		> dl {
+			position: absolute;
+			top: 40px;
+			right: 24px;
+
+			dt {
+				padding-right: 14px;
+				@include mixin.font('12px/23px');
+			}
+		}
+
+		> .mm_scroller {
+			border-bottom: 1px solid #d5d5d5;
+		}
+	}
+
+	// 자료실
+	&data {
+		margin-top: 29px;
+
+		ul {
+			padding-top: 1px;
+
+			li {
+				float: left;
+				width: 16.66666%;
+
+				&:nth-child(6n+1) {
+					a {
+						margin-left: 0;
+					}
+				}
+
+				a {
+					display: block;
+					position: relative;
+					margin: -1px 0 0 -1px;
+					padding: 0 50px 0 12px;
+					height: 56px;
+					border: 1px solid #d5d5d5;
+					@include mixin.font('12px/17px');
+
+					b {
+						@include mixin.text-ellipsis(2);
+						position: relative;
+						top: 50%;
+						@include mixin.transform(translateY(-50%));
+					}
+
+					.ico_download {
+						position: absolute;
+						top: 50%;
+						right: 10px;
+						margin-top: -11px;
+						padding-top: 4px;
+						width: 23px;
+						height: 23px;
+						border: 1px solid var.$color_tertiary_base;
+						text-align: center;
+					}
+				}
+			}
+		}
+	}
+}

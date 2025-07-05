@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ko" class="__layout_popup__">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no, address=no, email=no">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
+
+	<!-- 소셜태그 -->
+	<meta property="og:title" content="">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="">
+	<meta property="og:site_name" content="">
+	<!--// 소셜태그 -->
+
+	<title>(팝업) 회원정보 상세조회 - 스타일크루 CSAdmin</title>
+
+	<!-- 공통 css -->
+	<link rel="stylesheet" href="../css/lib.css">
+	<link rel="stylesheet" href="../css/app.css">
+	<!-- <link rel="stylesheet" data-css="{ '_href': '../css/font.css' }"> -->
+
+	<!-- (D) 폴리필/라이브러리는 요청을 줄이기 위해 combind + minify를 적용해주세요. -->
+	<!-- 폴리필/라이브러리 스크립트 -->
+	<script src="../js/polyfill/babel-polyfill-7.12.1.min.js"></script>
+	<script src="../js/polyfill/dom4-2.1.5.min.js"></script>
+	<script src="../js/polyfill/fetch.umd-3.6.2.min.js"></script>
+	<script src="../js/polyfill/intersection-observer-0.12.0.min.js"></script>
+	<script src="../js/polyfill/resize-observer-1.5.1.min.js"></script>
+	<script src="../js/lib/lodash-4.17.21.min.js"></script>
+	<script src="../js/lib/axios-0.21.1.min.js"></script>
+	<script src="../js/lib/load-image.all-5.14.0.min.js"></script>
+	<script src="../js/lib/sortable-1.13.0.min.js"></script>
+	<script src="../js/lib/gsap-3.6.1/gsap.min.js"></script>
+	<script src="../js/lib/jquery-3.6.0.min.js"></script>
+	<script src="../js/lib/editor-2.23.0/trumbowyg.min.js"></script>
+	<script src="../js/lib/editor-2.23.0/plugins/colors/trumbowyg.colors.js"></script>
+	<script src="../js/lib/editor-2.23.0/plugins/fontsize/trumbowyg.fontsize.min.js"></script>
+	<script src="../js/lib/editor-2.23.0/plugins/table/trumbowyg.table.min.js"></script>
+
+	<!-- 공통 스크립트 -->
+	<script src="../js/app_common.js"></script>
+	<script src="../js/app_page-common.js"></script>
+
+	<!-- (D) 페이지 전용 스크립트는 .mm_page-content 하단에 넣어주세요. -->
+</head>
+<body>
+	<div id="mm_app" class="mm_app">
+		<!-- 스킵 -->
+		<nav class="mm_skip">
+			<ul>
+				<li><a href="#mm_body" data-href="anchor">본문바로가기</a></li>
+			</ul>
+		</nav>
+		<!-- 스킵 -->
+
+		<!-- 화면 -->
+		<div class="mm_view">
+			<!-- 헤더 -->
+			<div class="mm_header">
+				<h1><b>회원정보 상세조회</b></h1>
+				<button type="button" class="btn_popup-close" onclick="window.close();return false;"><i class="ico_close-popup"></i><b class="mm_ir-blind">팝업닫기</b></button>
+			</div>
+			<!--// 헤더 -->
+
+			<!-- 내용 -->
+			<div id="mm_body" class="mm_page">
+				<!-- 본문 -->
+				<!--
+					(D) 실제 내용을 추가하는 부분입니다.
+					팝업은 html 요소에 '__layout_popup__' 클래스를 추가합니다.
+				-->
+				<div class="mm_page-content m_popup-member-info">
+					<!-- 본문 내용 -->
+					<div class="mm_container">
+						<form>
+							<div class="mm_form">
+								<table>
+									<tbody>
+										<tr>
+											<th></th><td></td><th></th><td></td>
+										</tr>
+										<tr>
+											<th scope="row"><b>회원ID</b></th>
+											<td><p>hong1</p></td>
+											<th scope="row"><b>비밀번호</b></th>
+											<td>
+												<p>*****</p>
+												<button type="button" class="mm_btn btn_password __btn_line__"><i class="ico_refresh __refresh_dark__"></i><b>알림톡 임시 비밀번호 발송</b></button>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row"><b>이름</b></th>
+											<td>
+												<div class="mm_form-text">
+													<button type="button" class="btn_text-clear"><i class="ico_form-clear"></i><b class="mm_ir-blind">지우기</b></button>
+													<label>
+														<input type="text" class="textfield" data-text maxlength="10" value="홍길동"><i class="bg_text"></i>
+														<span class="text_placeholder">최대 10자 입력</span>
+													</label>
+												</div>
+											</td>
+											<th scope="row"><b>생년월일</b></th>
+											<td><p>1991-01-01</p></td>
+										</tr>
+										<tr>
+											<th scope="row"><b>고객등급</b></th>
+											<td><p>CREW1</p></td>
+											<th scope="row"><b>전화번호</b></th>
+											<td>
+												<div class="mm_form-text">
+													<button type="button" class="btn_text-clear"><i class="ico_form-clear"></i><b class="mm_ir-blind">지우기</b></button>
+													<label>
+														<input type="text" class="textfield" data-text maxlength="12" value="03112345678"><i class="bg_text"></i>
+														<span class="text_placeholder">숫자로만 최대 12자 입력</span>
+													</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row"><b>휴대폰 번호</b></th>
+											<td>
+												<div class="mm_form-text">
+													<button type="button" class="btn_text-clear"><i class="ico_form-clear"></i><b class="mm_ir-blind">지우기</b></button>
+													<label>
+														<input type="text" class="textfield" data-text maxlength="12" value="01012345678"><i class="bg_text"></i>
+														<span class="text_placeholder">숫자로만 최대 12자 입력</span>
+													</label>
+												</div>
+											</td>
+											<th scope="row"><b>이메일 주소</b></th>
+											<td>
+												<div class="mm_form-text">
+													<button type="button" class="btn_text-clear"><i class="ico_form-clear"></i><b class="mm_ir-blind">지우기</b></button>
+													<label>
+														<input type="text" class="textfield" data-text maxlength="50" value="hong1@email.com"><i class="bg_text"></i>
+														<span class="text_placeholder">최대 50자 입력</span>
+													</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row"><b>SMS 수신동의</b></th>
+											<td>
+												<div class="mm_radio-list">
+													<ul>
+														<li>
+															<label class="mm_form-radio">
+																<input type="radio" name="dev_radio-sms" data-radio checked>
+																<b class="mm_block">
+																	<i class="ico_form-radio"></i>
+																	<span class="text_label">수신동의</span>
+																</b>
+															</label>
+														</li>
+														<li>
+															<label class="mm_form-radio">
+																<input type="radio" name="dev_radio-sms" data-radio>
+																<b class="mm_block">
+																	<i class="ico_form-radio"></i>
+																	<span class="text_label">수신거부</span>
+																</b>
+															</label>
+														</li>
+													</ul>
+												</div>
+											</td>
+											<th scope="row"><b>이벤트 메일 수신동의</b></th>
+											<td>
+												<div class="mm_radio-list">
+													<ul>
+														<li>
+															<label class="mm_form-radio">
+																<input type="radio" name="dev_radio-email" data-radio checked>
+																<b class="mm_block">
+																	<i class="ico_form-radio"></i>
+																	<span class="text_label">수신동의</span>
+																</b>
+															</label>
+														</li>
+														<li>
+															<label class="mm_form-radio">
+																<input type="radio" name="dev_radio-email" data-radio>
+																<b class="mm_block">
+																	<i class="ico_form-radio"></i>
+																	<span class="text_label">수신거부</span>
+																</b>
+															</label>
+														</li>
+													</ul>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row"><b>보유 적립금</b></th>
+											<td>
+												<p>12,300</p>
+												<a class="mm_btn __btn_line_light__" href="_popup_pointHistory.html" data-href="{ '_type': 'popup' }" title="새 창 열림"><b>적립금이력</b></a>
+											</td>
+											<th scope="row"><b>가입일시 (가입방법)</b></th>
+											<td><p>2021-01-05 11:12:23 (자사)</p></td>
+										</tr>
+										<tr>
+											<th scope="row"><b>고객 주문내역</b></th>
+											<td>
+												<a class="mm_btn __btn_line_light__" href="orderList.html" target="_blank" title="새 창 열림"><b>주문내역</b></a>
+												<div class="mm_note"><p class="mm_text-primary">최근 3개월 내역</p></div>
+											</td>
+											<th scope="row"><b>고객 문의내역</b></th>
+											<td>
+												<a class="mm_btn __btn_line_light__" href="boardCompanyMember.html" target="_blank" title="새 창 열림"><b>문의내역</b></a>
+												<div class="mm_note"><p class="mm_text-primary">최근 3개월 내역</p></div>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row"><b>주 환불계좌</b></th>
+											<td colspan="3">
+												<div class="mm_form-table">
+													<table>
+														<tbody>
+															<tr>
+																<th scope="row"><b>은행명(코드)</b></th>
+																<td><p>신한(027013)</p></td>
+															</tr>
+															<tr>
+																<th scope="row"><b>예금주</b></th>
+																<td><p>홍길동</p></td>
+															</tr>
+															<tr>
+																<th scope="row"><b>계좌번호</b></th>
+																<td><p>1234567890</p></td>
+															</tr>
+															<tr>
+																<th scope="row"><b>등록일시</b></th>
+																<td><p>2021-01-05 11:12:13</p></td>
+															</tr>
+															<tr>
+																<td colspan="2">
+																	<div class="mm_btnbox">
+																		<div class="mm_lside">
+																			<button type="button" class="mm_btn __btn_line__"><b>삭제</b></button>
+																			<a class="mm_btn" href="_popup_mainAccountModify.html" data-href="{ '_type': 'popup' }" title="새 창 열림"><b>수정</b></a>
+																		</div>
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row"><b>주소</b></th>
+											<td colspan="3">
+												<div class="mm_formmix-address">
+													<div class="mm_formmix-linked">
+														<div class="mm_form-text __text_xxs__">
+															<button type="button" class="btn_text-clear"><i class="ico_form-clear"></i><b class="mm_ir-blind">지우기</b></button>
+															<label>
+																<input type="text" class="textfield" data-text value="12123" readonly><i class="bg_text"></i>
+																<span class="text_placeholder mm_ir-blind">우편번호</span>
+															</label>
+														</div>
+														<a href="_popup_postcode.html" class="mm_btn btn_postcode __btn_xxs_line__" data-href="{ '_type': 'popup' }" title="새 창 열림"><b>우편번호 찾기</b></a>
+													</div>
+													<div class="mm_form-text">
+														<button type="button" class="btn_text-clear"><i class="ico_form-clear"></i><b class="mm_ir-blind">지우기</b></button>
+														<label>
+															<input type="text" class="textfield" data-text value="경기도 성남시 분당구 판교로 242 (삼평동) PDC빌딩" readonly><i class="bg_text"></i>
+															<span class="text_placeholder mm_ir-blind">검색주소</span>
+														</label>
+													</div>
+													<div class="mm_form-text">
+														<button type="button" class="btn_text-clear"><i class="ico_form-clear"></i><b class="mm_ir-blind">지우기</b></button>
+														<label>
+															<input type="text" class="textfield" data-text value="C동 1층"><i class="bg_text"></i>
+															<span class="text_placeholder mm_ir-blind">상세주소</span>
+														</label>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row"><b>간편결제</b></th>
+											<td colspan="3">
+												<div class="mm_radio-list">
+													<ul>
+														<li>
+															<label class="mm_form-radio">
+																<input type="radio" name="dev_radio-pay" data-radio checked>
+																<b class="mm_block">
+																	<i class="ico_form-radio"></i>
+																	<span class="text_label">등록</span>
+																</b>
+															</label>
+														</li>
+														<li>
+															<label class="mm_form-radio">
+																<input type="radio" name="dev_radio-pay" data-radio>
+																<b class="mm_block">
+																	<i class="ico_form-radio"></i>
+																	<span class="text_label">미등록</span>
+																</b>
+															</label>
+														</li>
+													</ul>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row"><b>비고 (CS 전용)</b></th>
+											<td colspan="3">
+												<div class="mm_form-textarea">
+													<button type="button" class="btn_text-clear"><i class="ico_form-clear"></i><b class="mm_ir-blind">지우기</b></button>
+													<label>
+														<textarea class="textfield" data-text></textarea><i class="bg_text"></i>
+														<span class="text_placeholder mm_ir-blind">비고 (CS 전용)</span>
+													</label>
+												</div>
+												<button type="button" class="mm_btn btn_register __btn_xl__"><b>등록하기</b><i class="ico_add"></i></button>
+												<div class="mm_table" data-table>
+													<div class="mm_scroller">
+														<table>
+															<colgroup>
+																<col>
+																<col style="width: 20%;">
+																<col style="width: 15%;">
+																<col style="width: 10%;">
+															</colgroup>
+															<thead>
+																<tr>
+																	<th scope="col"><div class="mm_table-item">내용</div></th>
+																	<th scope="col"><div class="mm_table-item">작성일시</div></th>
+																	<th scope="col"><div class="mm_table-item">작성자</div></th>
+																	<th scope="col"><div class="mm_table-item">관리</div></th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td><div class="mm_table-item"><p>CS 비고 메모로 작성하였습니다. 위 회원님은 블랙컨슈머 입니다. 응대 시 과한 요구를 하십니다.</p></div></td>
+																	<td><div class="mm_table-item">2021-01-05 10:11:12</div></td>
+																	<td><div class="mm_table-item">관리자명</div></td>
+																	<td><div class="mm_table-item"><button type="button" class="mm_btn __btn_line__"><b>삭제</b></button></div></td>
+																</tr>
+																<tr>
+																	<td><div class="mm_table-item"><p>반품 요청이 잦은 회원입니다.</p></div></td>
+																	<td><div class="mm_table-item">2021-01-05 10:11:12</div></td>
+																	<td><div class="mm_table-item">관리자명</div></td>
+																	<td><div class="mm_table-item"><button type="button" class="mm_btn __btn_line__"><b>삭제</b></button></div></td>
+																</tr>
+																<tr>
+																	<td><div class="mm_table-item"><p>교환 시 반픔으로 바꾸어 달라는 요청이 잦습니다.</p></div></td>
+																	<td><div class="mm_table-item">2021-01-05 10:11:12</div></td>
+																	<td><div class="mm_table-item">관리자명</div></td>
+																	<td><div class="mm_table-item"><button type="button" class="mm_btn __btn_line__"><b>삭제</b></button></div></td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row"><b>회원정보 수정이력</b></th>
+											<td colspan="3">
+												<div class="mm_form-table">
+													<table>
+														<tbody>
+															<tr>
+																<th scope="row"><b>최근 수정일시</b></th>
+																<td><p>2021-01-05 19:12:13</p></td>
+															</tr>
+															<tr>
+																<th scope="row"><b>최근 수정자</b></th>
+																<td><p>고객</p></td>
+															</tr>
+															<tr>
+																<td colspan="2"><a class="mm_btn __btn_line_light__" href="_popup_memberModifyHistory.html" data-href="{ '_type': 'popup' }" title="새 창 열림"><b>수정이력</b></a></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<!-- 하단버튼 -->
+							<div class="mm_foot">
+								<div class="mm_btnbox">
+									<button type="button" class="mm_btn __btn_xl__"><b>수정하기</b></button>
+								</div>
+							</div>
+							<!--// 하단버튼 -->
+							<input hidden>
+						</form>
+					</div>
+					<!--// 본문 내용 -->
+
+					<!-- 현재 페이지 스크립트 -->
+					<!-- <script src="../js/.js"></script> -->
+				</div>
+				<!--// 본문 -->
+			</div>
+			<!--// 내용 -->
+		</div>
+		<!--// 화면 -->
+	</div>
+</body>
+</html>

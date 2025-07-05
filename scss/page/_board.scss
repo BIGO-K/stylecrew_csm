@@ -1,0 +1,23 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../setting/const';
+@use '../setting/var';
+@use '../helper/mixin';
+
+/**
+ * 게시판관리
+**/
+
+
+//< CS 알리미
+.m_board-cs-search {
+    .mm_formmix-linked {
+        .mm_form-select {
+            &[class*=_xs_] {
+                max-width: 250px;
+            }
+        }
+    }
+}
+//> CS 알리미

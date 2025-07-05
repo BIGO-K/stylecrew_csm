@@ -1,0 +1,181 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../setting/const';
+@use '../setting/var';
+@use '../helper/mixin';
+
+/**
+ * 로그인
+**/
+
+
+html[class*="_login_"] {
+	.mm_view,
+	.mm_page,
+	.mm_page-content {
+		padding: 0;
+		height: 100%;
+	}
+}
+
+.m_login {
+	height: 100%;
+	@include mixin.font('0' center);
+
+	&[class*="_stylecrew_"] {
+		$color_stylecrew_primary: #13c2bd;
+
+		.m_login-inner {
+			border-top-color: $color_stylecrew_primary;
+		}
+
+		h1 {
+			.image_logo {
+				width: 210px;
+				height: 23px;
+				background-image: url('https://image.stylecrew.co.kr/mall/publish/csm/common/logo_stylecrew.svg');
+			}
+
+			b:not(.mm_ir-blind) {
+				margin-top: 18px;
+			}
+		}
+
+		.mm_btnbox {
+			[class*="_primary_"] {
+				&:not([class*="_line_"]) {
+					background-color: $color_stylecrew_primary;
+				}
+
+				&[class*="_line_"] {
+					color: $color_stylecrew_primary;
+				}
+
+				&::after {
+					border-color: $color_stylecrew_primary;
+				}
+			}
+		}
+	}
+
+	&::before {
+		margin-left: -1px;
+		width: 1px;
+		height: 100%;
+		vertical-align: middle;
+		content: '';
+	}
+
+	&-inner {
+		display: inline-block;
+		padding-bottom: 86px;
+		width: 490px;
+		border-top: 2px solid var.$color_primary_base;
+		background-color: #fff;
+		vertical-align: middle;
+	}
+
+	span,
+	a {
+		&[class*="mm_syncer"] {
+			&[class*="-use"] {
+				display: inline-block;
+			}
+		}
+	}
+
+	h1 {
+		margin: 52px auto 43px;
+		font-size: 20px;
+
+		.image_logo {
+			width: 133px;
+			height: 28px;
+			@include mixin.background(url('https://image.stylecrew.co.kr/mall/publish/csm/common/logo_fashionplus.png') '0 0' no-repeat);
+		}
+
+		b:not(.mm_ir-blind) {
+			display: block;
+			margin-top: 13px;
+		}
+	}
+
+	&-form {
+		padding: 0 75px;
+		text-align: left;
+
+		.mm_radio-list {
+			+ section {
+				margin-top: 25px;
+			}
+		}
+
+		section {
+			margin-top: 15px;
+
+			h3 {
+				padding-bottom: 8px;
+				font-size: 12px;
+			}
+
+			+ .mm_btnbox {
+				margin-top: 16px;
+			}
+		}
+
+		// 로그인 실패 (자동입력 방지문자 입력 영역)
+		&-fail {
+			@include mixin.clearfix;
+			font-size: 0;
+
+			> p {
+				margin: 3px 0 15px;
+				@include mixin.font(var.$color_primary_base '11px/15px');
+			}
+
+			.image_security {
+				width: 122px;
+				height: 34px;
+				border: 1px solid #d5d5d5;
+				text-align: center;
+
+				img {
+					height: 100%;
+				}
+			}
+
+			.mm_btn {
+				margin-left: -1px;
+				padding: 0 11px 0 12px;
+				height: 34px;
+				@include mixin.font(#444 '/34px');
+
+				.ico_refresh {
+					margin: 12px 4px 0 0;
+				}
+			}
+
+			.mm_form-text {
+				float: right;
+				width: 131px;
+			}
+		}
+
+		.mm_form-check {
+			margin: 16px 0;
+		}
+
+		> .mm_note {
+			margin: 10px 0 0 3px;
+		}
+
+		.btn_pw-change {
+			margin: 3px 0 0 11px;
+
+			.ico_link-pw {
+				margin: 8px 0 0 6px;
+			}
+		}
+	}
+}

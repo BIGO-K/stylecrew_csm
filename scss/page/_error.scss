@@ -1,0 +1,93 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../setting/const';
+@use '../setting/var';
+@use '../helper/mixin';
+
+/**
+ * 에러
+**/
+
+
+html[class*="_error_"] {
+	.mm_view,
+	.mm_page,
+	.mm_page-content {
+		padding: 0;
+		height: 100%;
+	}
+
+	.m_error {
+		height: 100%;
+		@include mixin.font('0' center);
+
+		&::before {
+			margin-left: -1px;
+			width: 1px;
+			height: 100%;
+			vertical-align: middle;
+			content: '';
+		}
+
+		&-inner {
+			display: inline-block;
+			padding: 50px 0;
+			vertical-align: middle;
+
+			header {
+				margin-top: 35px;
+
+				h1 {
+					@include mixin.font(var.$color_main_base '28px/32px');
+				}
+			}
+
+			p {
+				margin-top: 9px;
+				@include mixin.font(#333 '14px/19px');
+			}
+
+			dl {
+				margin: 36px 40px 0;
+				padding: 23px 0 21px;
+				background-color: #f9f9f9;
+
+				dt {
+					font-size: 14px;
+
+					[class*="__ie1"] &, .__edge & { margin: 1px 0 -1px; }
+				}
+
+				dd {
+					padding-top: 10px;
+					@include mixin.font('18px/24px');
+
+					strong {
+						@include mixin.font(700 '19px');
+					}
+				}
+			}
+
+			footer {
+				margin-top: 30px;
+
+				.mm_btnbox {
+					[class*="_primary_"] {
+						&:not([class*="_line_"]) {
+							background-color: #13c2bd;
+						}
+
+						&::after {
+							border-color: #13c2bd;
+						}
+					}
+
+					.mm_btn {
+						width: 200px;
+					}
+				}
+			}
+		}
+	}
+}

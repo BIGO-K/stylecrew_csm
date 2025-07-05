@@ -1,0 +1,2326 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+
+	<title>스타일크루 CSAdmin</title>
+
+	<link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothic.css">
+	<link rel="stylesheet" href="css/app.css">
+	<style>
+		#mm_view {margin:0 auto;padding-bottom:100px;width:1600px;}
+		h1 {margin-bottom:30px;padding:25px 0;background:#00989c;color:#fff;font-size:40px;text-align:center;}
+
+		.mm_tab-menu ul {display:flex;border-right:1px solid #bcbcbc;}
+		.mm_tab-menu ul > li {flex:auto;border:1px solid #bcbcbc;border-right:0;background:#fafafa;color:#bcbcbc;font-size:14px;}
+		.mm_tab-menu ul > li > .btn_tab {padding:15px;width:100%;text-align:center;}
+		.mm_tab-menu ul > li > .btn_tab.__tab-on {background:#fff;color: #202020;font-weight:500;}
+
+		.mm_tab-item {margin-top:-1px;border:1px solid #bcbcbc;}
+		.mm_tab-item section {border-bottom:1px solid #ddd;}
+		.mm_tab-item section h2 {padding:12px 10px;font-weight:500;font-size:15px;}
+		.mm_tab-item section > ul > li:nth-child(even) {background:#fafafa;}
+		.mm_tab-item section li {position:relative;padding-left:30px;}
+		.mm_tab-item section li > ul .mm_flex {border-top:1px solid #f4f4f4;}
+		.mm_tab-item section li ul:before {position:absolute;top:35px;bottom:10px;left:48px;border-left:1px solid #ddd;content:'';}
+		.mm_tab-item section .mm_flex {align-items:center;-webkit-align-items:center;padding:8px 0px;line-height:18px;}
+		.mm_tab-item section .mm_flex:hover {background:#dfdfdf;}
+		.mm_tab-item section .mm_flex div {padding:0 10px;font-size:13px;text-align:center;}
+		.mm_tab-item section .mm_flex div.text_name {flex:1;-webkit-flex:1;text-align:left;}
+		.mm_tab-item section .mm_flex div.text_link {width:350px;font-weight:500;text-align:left;}
+		.mm_tab-item section .mm_flex div:nth-child(3) {width:100px;}
+		.mm_tab-item section .mm_flex div:nth-child(4) {width:450px;text-align:left;}
+		.mm_tab-item section .mm_flex del {color:#aaa;}
+		.mm_tab-item section .text_tag {display:inline-block;padding:1px 5px;border:1px solid #ee1111;border-radius:3px;background:#fff;color:#ee1111;font-size:12px;}
+		.mm_tab-item section .text_tag.__tag_develop__,
+		.mm_tab-item section .text_tag.__tag_complete__ {border-color:#04aa37;color:#04aa37;}
+		.mm_tab-item section .text_tag.__tag_working__ {border-color:#558eda;color:#558eda;}
+		.mm_tab-item section .text_tag.__tag_checking__ {border-color:#973af3;color:#973af3;}
+		.mm_tab-item section .text_tag.__tag_recheck__ {border-color:#e83af3;color:#e83af3;}
+		.mm_tab-item section .text_tag.__tag_remove__ {border-color:#aaa;color:#aaa;}
+		.mm_tab-item section .text_color1 {color:#558eda;}/*진행중*/
+		.mm_tab-item section .text_color2 {color:#973af3;}/*개발전달*/
+		.mm_tab-item section .text_color3 {color:#ee1111;}/*긴급,변경사항*/
+	</style>
+
+	<!-- (D) 폴리필/라이브러리는 요청을 줄이기 위해 combind + minify를 적용해주세요. -->
+	<!-- 폴리필/라이브러리 스크립트 -->
+	<script src="js/polyfill/babel-polyfill-7.12.1.min.js"></script>
+	<script src="js/polyfill/dom4-2.1.5.min.js"></script>
+	<script src="js/lib/lodash-4.17.21.min.js"></script>
+	<script src="js/lib/jquery-3.6.0.min.js"></script>
+
+	<!-- 공통 스크립트 -->
+	<script src="js/app_common.js"></script>
+</head>
+<body>
+	<div id="mm_view">
+		<h1>스타일크루 CSAdmin</h1>
+
+		<!--
+			인덱스
+			태그 상태에 따라 text_tag에 상태 클래스를 추가하고(미작업 제외), 링크가 없는 li의 경우 .text_name을 제외한 나머지 div 요소를 삭제합니다.
+		-->
+		<div class="mm_tab" data-tab>
+			<nav class="mm_tab-menu">
+				<ul>
+					<li><a class="btn_tab __tab-on" href="javascript:;">템플릿/레이아웃/에러</a></li>
+					<li><a class="btn_tab" href="javascript:;">팝업</a></li>
+					<li><a class="btn_tab" href="javascript:;">로그인/메인</a></li>
+					<li><a class="btn_tab" href="javascript:;">주문 관리</a></li>
+					<li><a class="btn_tab" href="javascript:;">게시판 관리</a></li>
+					<li><a class="btn_tab" href="javascript:;">환불 관리</a></li>
+					<li><a class="btn_tab" href="javascript:;">클레임 관리</a></li>
+					<li><a class="btn_tab" href="javascript:;">보상/패널티 관리</a></li>
+					<li><a class="btn_tab" href="javascript:;">배송 관리</a></li>
+					<li><a class="btn_tab" href="javascript:;">상품/협력사 관리</a></li>
+					<li><a class="btn_tab" href="javascript:;">운영 관리</a></li>
+				</ul>
+			</nav>
+
+			<!-- 템플릿/레이아웃/에러 -->
+			<div class="mm_tab-item __tab-on">
+				<!-- 템플릿/레이아웃 -->
+				<section>
+					<h2><span>템플릿/레이아웃</span></h2>
+					<ul>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">템플릿</div>
+								<div class="text_link">_template.html</div>
+								<div><span class="text_tag __tag_working__"></span></div>
+								<div class="text_color1">작업이 진행되면서 내용이 업데이트 됩니다.</div>
+							</a>
+						</li>
+						<li>
+							<a class="mm_flex"><div class="text_name">레이아웃</div></a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">레이아웃 메인</div>
+										<div class="text_link">_layoutMain.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">레이아웃 팝업</div>
+										<div class="text_link">_layoutPopup.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<!--// 템플릿/레이아웃 -->
+				<!-- 에러 -->
+				<section>
+					<h2><span>에러</span></h2>
+					<ul>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">403</div>
+								<div class="text_link">error403.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div></div>
+							</a>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">404</div>
+								<div class="text_link">error404.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div></div>
+							</a>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">500</div>
+								<div class="text_link">error500.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div></div>
+							</a>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">서비스점검</div>
+								<div class="text_link">errorService.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div></div>
+							</a>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">트래픽</div>
+								<div class="text_link">errorTraffic.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div></div>
+							</a>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">그 외</div>
+								<div class="text_link">error.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div></div>
+							</a>
+						</li>
+					</ul>
+				</section>
+				<!--// 에러 -->
+			</div>
+			<!--// 템플릿/레이아웃/에러 -->
+
+			<!-- 팝업 -->
+			<div class="mm_tab-item">
+				<!-- 팝업 -->
+				<section>
+					<h2><span>팝업</span></h2>
+					<ul>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">[팝업] 검색회원정보</div>
+								<div class="text_link">_popup_searchMemberInfo.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div></div>
+							</a>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">[팝업] 고객주문조회</div>
+								<div class="text_link">_popup_customerOrderList.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div></div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 내용없음</div>
+										<div class="text_link">_popup_customerOrderList_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 회원정보상세조회</div>
+										<div class="text_link">_popup_memberInfoInquiry.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+									<ul>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 내용없음</div>
+												<div class="text_link">_popup_memberInfoInquiry_none.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div></div>
+											</a>
+										</li>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 적립금이력</div>
+												<div class="text_link">_popup_pointHistory.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div></div>
+											</a>
+										</li>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 주 환불계좌 등록</div>
+												<div class="text_link">_popup_mainAccountRegister.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div></div>
+											</a>
+										</li>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 주 환불계좌 수정</div>
+												<div class="text_link">_popup_mainAccountModify.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div></div>
+											</a>
+										</li>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 회원정보 수정 이력</div>
+												<div class="text_link">_popup_memberModifyHistory.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div></div>
+											</a>
+											<ul>
+												<li>
+													<a class="mm_flex">
+														<div class="text_name">[팝업] 내용없음</div>
+														<div class="text_link">_popup_memberModifyHistory_none.html</div>
+														<div><span class="text_tag __tag_develop__"></span></div>
+														<div></div>
+													</a>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] SMS발송</div>
+										<div class="text_link">_popup_smsSend.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+									<ul>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 내용없음</div>
+												<div class="text_link">_popup_smsSend_none.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div></div>
+											</a>
+										</li>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] SMS템플릿</div>
+												<div class="text_link">_popup_smsTemplate.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div></div>
+											</a>
+											<ul>
+												<li>
+													<a class="mm_flex">
+														<div class="text_name">[팝업] 내용없음</div>
+														<div class="text_link">_popup_smsTemplate_none.html</div>
+														<div><span class="text_tag __tag_develop__"></span></div>
+														<div></div>
+													</a>
+												</li>
+											</ul>
+										</li>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] SMS내용</div>
+												<div class="text_link">_popup_smsContents.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div></div>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 이메일발송</div>
+										<div class="text_link">_popup_mailSend.html</div>
+										<div><span class="text_tag"></span></div>
+										<div class="text_color3">이메일 솔루션 업체 변경으로 인해 업체에 기획 확인필요</div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 수취인 정보수정</div>
+										<div class="text_link">_popup_recieverInfoModify.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div>[팝업] 수취인 정보수정 이력</div>
+									</a>
+									<ul>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 수취인 정보수정 이력</div>
+												<div class="text_link">_popup_recieverModifyHistory.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div></div>
+											</a>
+											<ul>
+												<li>
+													<a class="mm_flex">
+														<div class="text_name">[팝업] 내용없음</div>
+														<div class="text_link">_popup_recieverModifyHistory_none.html</div>
+														<div><span class="text_tag __tag_develop__"></span></div>
+														<div></div>
+													</a>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] MD 정보</div>
+										<div class="text_link">_popup_mdInfo.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 할인 정보</div>
+										<div class="text_link">_popup_saleInfo.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 환불 재계산 결과 설명</div>
+										<div class="text_link">_popup_refundCalcResult.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 고객계좌정보</div>
+										<div class="text_link">_popup_customerAccount.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 취소신청</div>
+										<div class="text_link">_popup_cancelApply.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div>[팝업] 취소수정</div>
+									</a>
+									<ul>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 취소수정(결제완료)</div>
+												<div class="text_link">_popup_cancelModify.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div>
+													(상태) 배송상태 - 결제 완료<br>
+													[팝업] 환불 재계산 결과 설명, 고객계좌정보
+												</div>
+											</a>
+										</li>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 취소수정(배송준비중)</div>
+												<div class="text_link">_popup_cancelModifyDelivery.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div>
+													(상태) 배송상태 - 배송준비중<br>
+													[팝업] 환불 재계산 결과 설명, 고객계좌정보, 취소거부
+												</div>
+											</a>
+										</li>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 취소거부</div>
+												<div class="text_link">_popup_cancelReject.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div></div>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 반품신청</div>
+										<div class="text_link">_popup_returnApply.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div>[팝업] 거래처/배송처 정보</div>
+									</a>
+									<ul>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 반품수정</div>
+												<div class="text_link">_popup_returnModify.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div>[팝업] 환불 재계산 결과 설명, 신규주문생성, 거래처/배송처 정보, 고객계좌정보</div>
+											</a>
+											<ul>
+												<li>
+													<a class="mm_flex">
+														<div class="text_name">[팝업] 내용없음</div>
+														<div class="text_link">_popup_returnModify_none.html</div>
+														<div><span class="text_tag __tag_develop__"></span></div>
+														<div></div>
+													</a>
+												</li>
+												<li>
+													<a class="mm_flex">
+														<div class="text_name">[팝업] 신규주문생성</div>
+														<div class="text_link">_popup_newOrderCreate.html</div>
+														<div><span class="text_tag __tag_develop__"></span></div>
+														<div></div>
+													</a>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 반품 신청 후 완료</div>
+										<div class="text_link">_popup_returnApplyFin.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div>[팝업] 거래처/배송처 정보</div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 교환신청</div>
+										<div class="text_link">_popup_exchangeApply.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div>[팝업] 회사 주소 수정, 교환 상품 받을 주소 수정, 거래처/배송처 정보</div>
+									</a>
+									<ul>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 교환수정</div>
+												<div class="text_link">_popup_exchangeModify.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div>(상태) 배송완료<br>
+													[팝업] 거래처/배송처 정보, 교환 회수 전 보류, 교환 회수 후 보류, 반품 전환
+												</div>
+											</a>
+											<ul>
+												<li>
+													<a class="mm_flex">
+														<div class="text_name">[팝업] 내용없음</div>
+														<div class="text_link">_popup_exchangeModify_none.html</div>
+														<div><span class="text_tag __tag_develop__"></span></div>
+														<div></div>
+													</a>
+												</li>
+												<li>
+													<a class="mm_flex">
+														<div class="text_name">[팝업] 교환 회수 전 보류</div>
+														<div class="text_link">_popup_exchangeHoldPrev.html</div>
+														<div><span class="text_tag __tag_develop__"></span></div>
+														<div></div>
+													</a>
+												</li>
+												<li>
+													<a class="mm_flex">
+														<div class="text_name">[팝업] 교환 회수 후 보류</div>
+														<div class="text_link">_popup_exchangeHoldNext.html</div>
+														<div><span class="text_tag __tag_develop__"></span></div>
+														<div></div>
+													</a>
+												</li>
+												<li>
+													<a class="mm_flex">
+														<div class="text_name">[팝업] 반품 전환</div>
+														<div class="text_link">_popup_returnChange.html</div>
+														<div><span class="text_tag __tag_develop__"></span></div>
+														<div></div>
+													</a>
+												</li>
+												<li>
+													<a class="mm_flex">
+														<div class="text_name">[팝업] 교환처리(교환배송중)</div>
+														<div class="text_link">_popup_dispatchProcess.html</div>
+														<div><span class="text_tag __tag_remove__"></span></div>
+														<div></div>
+													</a>
+												</li>
+												<li>
+													<a class="mm_flex">
+														<div class="text_name">[팝업] 교환처리(보류해제)</div>
+														<div class="text_link">_popup_exchangeHoldRelease.html</div>
+														<div><span class="text_tag __tag_remove__"></span></div>
+														<div></div>
+													</a>
+												</li>
+												<li>
+													<a class="mm_flex">
+														<div class="text_name">[팝업] 교환처리(교환철회)</div>
+														<div class="text_link">_popup_exchangeWithdrawal.html</div>
+														<div><span class="text_tag __tag_remove__"></span></div>
+														<div></div>
+													</a>
+												</li>
+											</ul>
+										</li>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 회수 주소 수정</div>
+												<div class="text_link">_popup_collectionAddressModify.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div>[팝업] 우편번호 찾기</div>
+											</a>
+										</li>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 교환 상품 받을 주소 수정</div>
+												<div class="text_link">_popup_returnAddressModify.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div>[팝업] 우편번호 찾기</div>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 송장수정</div>
+										<div class="text_link">_popup_invoiceModify.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+									<ul>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 내용없음</div>
+												<div class="text_link">_popup_invoiceModify_none.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div></div>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 상담등록</div>
+										<div class="text_link">_popup_counsellingRegister.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div>[링크] CS 알리미 등록</div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 상담수정</div>
+										<div class="text_link">_popup_counsellingModify.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] CS 알리미 등록</div>
+										<div class="text_link">_popup_csNotifyRegister.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div>[링크] 상담 등록</div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 클레임 정보 상세</div>
+										<div class="text_link">_popup_claimInfoDetail.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] CS 알리미 상세 내용 (처리)</div>
+										<div class="text_link">_popup_csNotifyDetail.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div>(상태) 처리상태 - 처리</div>
+									</a>
+									<ul>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] CS 알리미 상세 내용 (미처리)</div>
+												<div class="text_link">_popup_csNotifyDetailUnprocessMaster.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div>(상태) 처리상태 - 미처리, CS알리미 작성자 - 본사 CS (최고관리자)</div>
+											</a>
+										</li>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] CS 알리미 상세 내용 (미처리)</div>
+												<div class="text_link">_popup_csNotifyDetailUnprocessClient.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div>(상태) 처리상태 - 미처리, CS알리미 작성자 - 거래처</div>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 문의내용</div>
+										<div class="text_link">_popup_inquiryContents.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 문의확인</div>
+										<div class="text_link">_popup_inquiryDetail.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div>
+											(상태) 회원, 제휴사<br>
+											[팝업] 문의이관, 문의 템플릿 관리
+										</div>
+									</a>
+									<ul>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 문의확인 (이관내용)</div>
+												<div class="text_link">_popup_inquiryDetailRetransfer.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div>
+													(상태) 이관내용있음<br>
+													[팝업] 문의이관, 문의 템플릿 관리
+												</div>
+											</a>
+										</li>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 문의확인 (답변완료)</div>
+												<div class="text_link">_popup_inquiryDetailAnswer.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div>
+													(상태) 답변완료<br>
+													[팝업] 문의 템플릿 관리
+												</div>
+											</a>
+										</li>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 문의이관</div>
+												<div class="text_link">_popup_inquiryTransfer.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div></div>
+											</a>
+										</li>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 문의 템플릿 관리</div>
+												<div class="text_link">_popup_inquiryTemplate.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div></div>
+											</a>
+											<ul>
+												<li>
+													<a class="mm_flex">
+														<div class="text_name">내용없음</div>
+														<div class="text_link">_popup_inquiryTemplate_none.html</div>
+														<div><span class="text_tag __tag_develop__"></span></div>
+														<div></div>
+													</a>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">[팝업] 거래처/배송처 정보</div>
+								<div class="text_link">_popup_clientInfo.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div></div>
+							</a>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">[팝업] 주문/클레임 상세정보</div>
+								<div class="text_link">_popup_orderDetail.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div></div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 내용없음</div>
+										<div class="text_link">_popup_orderDetail_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">[팝업] 우편번호찾기</div>
+								<div class="text_link">_popup_postcode.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div></div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 검색결과</div>
+										<div class="text_link">_popup_postcode_result.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 검색결과 없음</div>
+										<div class="text_link">_popup_postcode_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<!--// 팝업 -->
+			</div>
+			<!--// 팝업 -->
+
+			<!-- 로그인/메인 -->
+			<div class="mm_tab-item">
+				<!-- 로그인 -->
+				<section>
+					<h2><span>로그인</span></h2>
+					<ul>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">로그인</div>
+								<div class="text_link">login.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div></div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">비밀번호변경 - 스타일크루</div>
+										<div class="text_link">passwordChangeSC.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">비밀번호변경 - 패션플러스</div>
+										<div class="text_link">passwordChange.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<!--// 로그인 -->
+				<!-- 메인 -->
+				<section>
+					<h2><span>메인</span></h2>
+					<ul>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">메인</div>
+								<div class="text_link">main.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>[팝업] 업무 공지사항 상세</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">main_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 업무 공지사항 상세</div>
+										<div class="text_link">_popup_businessNoticeDetail.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<!--// 메인 -->
+				<!-- 메인(탭구조 변경) -->
+				<section>
+					<h2><span>메인(탭구조 변경)</span></h2>
+					<ul>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">메인 레이아웃</div>
+								<div class="text_link">main_tab.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div></div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">메인 컨텐츠 프레임</div>
+										<div class="text_link">_iframe_main.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div>샘플 1</div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">고객주문조회 컨텐츠 프레임</div>
+										<div class="text_link">_iframe_orderList.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div>샘플 2</div>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<!--// 메인(탭구조 변경) -->
+			</div>
+			<!--// 로그인/메인 -->
+
+			<!-- 주문 관리 -->
+			<div class="mm_tab-item">
+				<!-- 주문 관리 -->
+				<section>
+					<h2><span>주문 관리</span></h2>
+					<ul>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">고객주문조회</div>
+								<div class="text_link">orderList.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>[팝업] 주문/클레임 상세정보, 회원정보상세조회, 거래처/배송처 정보, MD 정보</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">orderList_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">신규주문생성</div>
+								<div class="text_link">orderCreate.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>
+									[팝업] 신규주문생성, 주문/클레임 상세정보
+								</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">orderCreate_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 신규주문생성</div>
+										<div class="text_link">_popup_orderCreate.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div>[팝업] 주문검색, 상품검색, 쿠폰적용</div>
+									</a>
+									<ul>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 내용없음</div>
+												<div class="text_link">_popup_orderCreate_none.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div>[팝업] 주문검색, 상품검색, 쿠폰적용</div>
+											</a>
+										</li>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 주문검색</div>
+												<div class="text_link">_popup_orderSearch.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div></div>
+											</a>
+										</li>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 상품검색</div>
+												<div class="text_link">_popup_productSearch.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div></div>
+											</a>
+										</li>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 쿠폰적용</div>
+												<div class="text_link">_popup_couponApply.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div></div>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">SMS발송내역</div>
+								<div class="text_link">orderSMS.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>[팝업] SMS발송</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">orderSMS_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">적립금 지급관리</div>
+								<div class="text_link">orderPointProvide.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>[팝업] 적립금 이력</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">orderPointProvide_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">쿠폰 사용 내역</div>
+								<div class="text_link">orderCouponUse.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>[팝업] 쿠폰 재발행, 쿠폰조회</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">orderCouponUse_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 쿠폰 재발행</div>
+										<div class="text_link">_popup_couponPublish.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+									<ul>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 내용없음</div>
+												<div class="text_link">_popup_couponPublish_none.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div></div>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 쿠폰조회</div>
+										<div class="text_link">_popup_couponSearch.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+									<ul>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">[팝업] 내용없음</div>
+												<div class="text_link">_popup_couponSearch_none.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div></div>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">입금내역현황</div>
+								<div class="text_link">orderDeposit.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>(팝업) 입금내역등록, 입금내역수정</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">orderDeposit_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">(팝업) 입금내역등록</div>
+										<div class="text_link">_popup_orderDepositRegister.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">(팝업) 입금내역수정</div>
+										<div class="text_link">_popup_orderDepositModify.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">회원정보조회</div>
+								<div class="text_link">orderMemberInfo.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>
+									[팝업] 회원정보상세조회
+									<p class="text_color2">[기능] grid 정렬 테이블</p>
+								</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">orderMemberInfo_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">회원등급변동조회</div>
+								<div class="text_link">orderMemberGrade.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>[팝업] 회원정보상세조회</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">orderMemberGrade_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">휴면회원목록</div>
+								<div class="text_link">orderMemberDormant.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>[팝업] 회원정보상세조회, 휴면회원복원</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">orderMemberDormant_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 휴면회원복원</div>
+										<div class="text_link">_popup_memberDormantRestore.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">탈퇴처리</div>
+								<div class="text_link">orderWithdrawal.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>[팝업] 회원정보상세조회, 미처리 리스트</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">orderWithdrawal_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 미처리 리스트</div>
+										<div class="text_link">_popup_withdrawalUncompleted.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<!--// 주문 관리 -->
+			</div>
+			<!--// 주문 관리 -->
+
+			<!-- 게시판 관리 -->
+			<div class="mm_tab-item">
+				<!-- 공통 팝업 -->
+				<section>
+					<h2><span>[팝업] 공통 팝업</span></h2>
+					<ul>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">[팝업] 선택 답변 등록</div>
+								<div class="text_link">_popup_boardSelectAnswer.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div></div>
+							</a>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">[팝업] 검색 답변 등록</div>
+								<div class="text_link">_popup_boardSearchAnswer.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div></div>
+							</a>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">[팝업] 문의확인</div>
+								<div class="text_link">_popup_boardInquiryDetail.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>(상태) 회원, 제휴사</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 문의확인 (이관내용)</div>
+										<div class="text_link">_popup_boardInquiryDetailRetransfer.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div>(상태) 이관내용있음</div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 문의확인 (답변완료)</div>
+										<div class="text_link">_popup_boardInquiryDetailAnswer.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div>(상태) 답변완료</div>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<!--// 공통 팝업 -->
+
+				<!-- 게시판 관리 -->
+				<section>
+					<h2><span>게시판 관리</span></h2>
+					<ul>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">자사몰 게시판(회원)</div>
+								<div class="text_link">boardCompanyMember.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>[팝업] 문의확인, 선택 답변 등록, 검색 답변 등록</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">boardCompanyMember_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">자사몰 게시판(비회원)</div>
+								<div class="text_link">boardCompanyNomember.html</div>
+								<div><span class="text_tag __tag_remove__"></span></div>
+								<div>[팝업] 문의확인, 선택 답변 등록, 검색 답변 등록</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">boardCompanyNomember_none.html</div>
+										<div><span class="text_tag __tag_remove__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">제휴사 게시판</div>
+								<div class="text_link">boardAffiliate.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>[팝업] 문의확인, 선택 답변 등록, 검색 답변 등록</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">boardAffiliate_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">CS 알리미</div>
+								<div class="text_link">boardCsNotice.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>[팝업] cs 알리미 상세, cs 알리미 등록, 선택 답변 등록(CS 알리미), 검색 답변 등록(CS 알리미)</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">boardCsNotice_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 선택 답변 등록(CS 알리미)</div>
+										<div class="text_link">_popup_boardSelectAnswerCs.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 검색 답변 등록(CS 알리미)</div>
+										<div class="text_link">_popup_boardSearchAnswerCs.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] CS 알리미 등록</div>
+										<div class="text_link">_popup_boardCsNotifyRegister.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">CS 알리미 템플릿관리</div>
+								<div class="text_link">boardCsTemplate.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div></div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">boardCsTemplate_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">CS 알리미 템플릿 등록</div>
+										<div class="text_link">boardCsTemplateRegister.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">CS 알리미 템플릿 수정</div>
+										<div class="text_link">boardCsTemplateModify.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">제휴 게시판 통계 조회</div>
+								<div class="text_link">boardAffiliateStats.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div></div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">boardAffiliateStats_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">게시판 통계 조회(통합)</div>
+								<div class="text_link">boardStats.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>[팝업] 미결(고객센터), 미결(협력사)</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">boardStats_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 미결(고객센터)</div>
+										<div class="text_link">_popup_boardPendencyCs.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+									<ul>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">내용없음</div>
+												<div class="text_link">_popup_boardPendencyCs_none.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div></div>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 미결(협력사)</div>
+										<div class="text_link">_popup_boardPendencyCoop.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+									<ul>
+										<li>
+											<a class="mm_flex">
+												<div class="text_name">내용없음</div>
+												<div class="text_link">_popup_boardPendencyCoop_none.html</div>
+												<div><span class="text_tag __tag_develop__"></span></div>
+												<div></div>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">게시판 통계 조회(비회원)</div>
+								<div class="text_link">boardStatsNomember.html</div>
+								<div><span class="text_tag __tag_remove__"></span></div>
+								<div></div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">boardStatsNomember_none.html</div>
+										<div><span class="text_tag __tag_remove__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">게시판 통계 조회(등급별)</div>
+								<div class="text_link">boardStatsGrade.html</div>
+								<div><span class="text_tag __tag_remove__"></span></div>
+								<div></div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">boardStatsGrade_none.html</div>
+										<div><span class="text_tag __tag_remove__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">개인별 처리건수</div>
+								<div class="text_link">boardProcess.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div></div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">boardProcess_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<!--// 게시판 관리 -->
+			</div>
+			<!--// 게시판 관리 -->
+
+			<!-- 환불 관리 -->
+			<div class="mm_tab-item">
+				<!-- 환불 관리 -->
+				<section>
+					<h2><span>환불 관리</span></h2>
+					<ul>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">환불 관리</div>
+								<div class="text_link">refundManage.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>
+									[팝업] 주문/클레임 상세정보, 회원정보상세조회, 거래처/배송처 정보<br>
+									<span class="text_color2">[기능] grid 정렬 테이블</span>
+								</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">refundManage_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">품절 전송 내역(주문 미생성)</div>
+								<div class="text_link">refundSoldoutTextList.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div></div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">refundSoldoutTextList_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">DB 제휴사 선취소 내역</div>
+								<div class="text_link">refundAffiliatePrecancel.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>
+									[팝업] 주문/클레임 상세정보, 회원정보상세조회, CS 알리미 등록_다중선택<br>
+									<span class="text_color2">[기능] grid 정렬 테이블</span>
+								</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">refundAffiliatePrecancel_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] CS 알리미 등록_다중선택</div>
+										<div class="text_link">_popup_csNotifyRegisterMulti.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">반품 철회 관리</div>
+								<div class="text_link">refundWithdrawal.html</div>
+								<div><span class="text_tag __tag_remove__"></span></div>
+								<div>[팝업] 주문/클레임 상세정보, 회원정보상세조회, CS 알리미 메모, CS 알리미 회신 메모, 오류 및 진행상태 <br><span class="text_color3">* 메뉴 보류중 *</span></div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">refundWithdrawal_none.html</div>
+										<div><span class="text_tag __tag_remove__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] CS 알리미 메모</div>
+										<div class="text_link">_popup_csNoticeMemo.html</div>
+										<div><span class="text_tag __tag_remove__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] CS 알리미 회신 메모</div>
+										<div class="text_link">_popup_csNoticeReplyMemo.html</div>
+										<div><span class="text_tag __tag_remove__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 오류 및 진행상태</div>
+										<div class="text_link">_popup_errorProgress.html</div>
+										<div><span class="text_tag __tag_remove__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">반품/교환 수거 관리</div>
+								<div class="text_link">refundCollection.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>[팝업] 주문/클레임 상세정보, 회원정보상세조회, 자동 회수 재전송</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">refundCollection_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 자동 회수 재전송</div>
+										<div class="text_link">_popup_autoCollectionResend.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">전략 지원팀 환불 관리</div>
+								<div class="text_link">refundStrategicSupport.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>[팝업] 주문/클레임 상세정보, 회원정보상세조회</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">refundStrategicSupport_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">환불없음</div>
+								<div class="text_link">refundNo.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>[팝업] 주문/클레임 상세정보</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">refundNo_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">반품 자동 처리 관리</div>
+								<div class="text_link">refundAutomaticProcess.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>
+									[팝업] 주문/클레임 상세정보, 거래처/배송처 정보
+									<p class="text_color2">[기능] grid 정렬 테이블</p>
+								</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">refundAutomaticProcess_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">반품 품목 상세 조회</div>
+								<div class="text_link">refundDetailInquire.html</div>
+								<div><span class="text_tag __tag_remove__"></span></div>
+								<div>[팝업] 주문/클레임 상세정보, 회원정보 상세조회</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">refundDetailInquire_none.html</div>
+										<div><span class="text_tag __tag_remove__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">환불 취소</div>
+								<div class="text_link">refundCancel.html</div>
+								<div><span class="text_tag __tag_remove__"></span></div>
+								<div>[팝업] 주문/클레임 상세정보, 회원정보상세조회, CS 메모</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">refundCancel_none.html</div>
+										<div><span class="text_tag __tag_remove__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] CS 메모</div>
+										<div class="text_link">_popup_refundCsMemo.html</div>
+										<div><span class="text_tag __tag_remove__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">업체 오토 반품 처리</div>
+								<div class="text_link">refundAutoReturn.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>
+									[팝업] 주문/클레임 상세정보, 회원정보상세조회, 거래처/배송처 정보
+									<p class="text_color2">구 scm반품 접수내역</p>
+								</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">refundAutoReturn_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">품절처리등록내역</div>
+								<div class="text_link">refundSoldoutRegister.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>
+									[팝업] 주문/클레임 상세정보, 회원정보상세조회, 거래처/배송처 정보, MD 정보
+								</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">refundSoldoutRegister_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<!--// 환불 관리 -->
+			</div>
+			<!--// 환불 관리 -->
+
+			<!-- 클레임 관리 -->
+			<div class="mm_tab-item">
+				<!-- 클레임 관리 -->
+				<section>
+					<h2><span>클레임 관리</span></h2>
+					<ul>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">상담정보조회</div>
+								<div class="text_link">claimCs.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>(팝업) 상담 수정, 주문/클레임 상세정보</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">claimCs_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">취소내역</div>
+								<div class="text_link">claimCancelList.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>(팝업) 주문/클레임 상세정보, 회원정보 상세조회</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">claimCancelList_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">교환내역</div>
+								<div class="text_link">claimExchangeList.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>(팝업) 교환 수정, 주문/클레임 상세정보, 교환 배송비 주문 정보, 회원정보 상세조회, 교환 보류 사유, 교환 철회 사유</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">claimExchangeList_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 교환 보류 사유</div>
+										<div class="text_link">_popup_exchangeDeferReason.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 교환 철회 사유</div>
+										<div class="text_link">_popup_exchangeWithdrawReason.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 교환 배송비 주문 정보</div>
+										<div class="text_link">_popup_exchangeDeliveryCharge.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">반품내역</div>
+								<div class="text_link">claimReturnList.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>
+									(팝업) 주문/클레임 상세정보, 회원정보 상세조회
+									<p class="text_color2">[기능] grid 정렬 테이블</p>
+								</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">claimReturnList_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">반품 미접수 환불 내역</div>
+								<div class="text_link">claimReturnNotReceived.html</div>
+								<div><span class="text_tag __tag_remove__"></span></div>
+								<div></div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">claimReturnNotReceived_none.html</div>
+										<div><span class="text_tag __tag_remove__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<!--// 클레임 관리 -->
+			</div>
+			<!--// 클레임 관리 -->
+
+			<!-- 보상/패널티 관리 -->
+			<div class="mm_tab-item">
+				<!-- 보상/패널티 관리 -->
+				<section>
+					<h2><span>보상/패널티 관리</span></h2>
+					<ul>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">배송 지연 신고 내역</div>
+								<div class="text_link">rewardDelay.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>[팝업] 주문/클레임 상세정보, 회원정보 상세조회</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">rewardDelay_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">품절 보상 신고 내역</div>
+								<div class="text_link">rewardSoldout.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>[팝업] 주문/클레임 상세정보, 회원정보 상세조회</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">rewardSoldout_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">환불/적립금 지급(정산차감)</div>
+								<div class="text_link">rewardRefund.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>[팝업] 주문/클레임 상세정보, 회원정보 상세조회</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">rewardRefund_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">협력사 배송료 등록</div>
+								<div class="text_link">rewardPartners.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>[팝업] 주문/클레임 상세정보, 회원정보 상세조회, 거래처/배송처 정보</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">rewardPartners_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">가송장 관리</div>
+								<div class="text_link">rewardProvisionalInvoice.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>[팝업] 주문/클레임 상세정보, 거래처/배송처 정보</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">rewardProvisionalInvoice_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">협력사 패널티 내역</div>
+								<div class="text_link">rewardPartnerPenalty.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>[팝업] 주문/클레임 상세정보, 회원정보 상세조회, 거래처/배송처 정보<p class="text_color2">[기능] grid 정렬 테이블</p></div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">rewardPartnerPenalty_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<!--// 보상/패널티 관리 -->
+			</div>
+			<!--// 보상/패널티 관리 -->
+
+			<!-- 배송 관리 -->
+			<div class="mm_tab-item">
+				<!-- 배송 관리 -->
+				<section>
+					<h2><span>배송 관리</span></h2>
+					<ul>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">미배송 조회</div>
+								<div class="text_link">deliveryUndelivered.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>[팝업] 주문/클레임 상세정보, 회원정보 상세조회, 거래처/배송처 정보, MD 정보, CS 알리미 일괄 발송</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">deliveryUndelivered_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] CS 알리미 일괄 발송</div>
+										<div class="text_link">_popup_csNotifyBatch.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">송장수정관리</div>
+								<div class="text_link">deliveryInvoiceModify.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div>[팝업] 주문/클레임 상세정보</div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">deliveryInvoiceModify_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<!--// 배송 관리 -->
+			</div>
+			<!--// 배송 관리 -->
+
+			<!-- 상품/협력사 관리 -->
+			<div class="mm_tab-item">
+				<!-- 상품/협력사 관리 -->
+				<section>
+					<h2><span>상품/협력사 관리</span></h2>
+					<ul>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">일반 사용자 관리</div>
+								<div class="text_link">partnerFPAccount.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div></div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">partnerFPAccount_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">[팝업] 거래처 정보</div>
+										<div class="text_link">_popup_partnerInfo.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<!--// 상품/협력사 관리 -->
+			</div>
+			<!--// 상품/협력사 관리 -->
+
+			<!-- 운영 관리 -->
+			<div class="mm_tab-item">
+				<!-- 운영 관리 -->
+				<section>
+					<h2><span>운영 관리</span></h2>
+					<ul>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">공지사항</div>
+								<div class="text_link">operationNotice.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div></div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">operationNotice_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">상세보기</div>
+										<div class="text_link">operationNoticeDetail.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">등록하기</div>
+										<div class="text_link">operationNoticeRegister.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">수정하기</div>
+										<div class="text_link">operationNoticeModify.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">업무 공지사항</div>
+								<div class="text_link">operationBusinessNotice.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div></div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">operationBusinessNotice_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">상세보기</div>
+										<div class="text_link">operationBusinessNoticeDetail.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">등록하기</div>
+										<div class="text_link">operationBusinessNoticeRegister.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">수정하기</div>
+										<div class="text_link">operationBusinessNoticeModify.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="mm_flex">
+								<div class="text_name">자료실</div>
+								<div class="text_link">operationData.html</div>
+								<div><span class="text_tag __tag_develop__"></span></div>
+								<div></div>
+							</a>
+							<ul>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">내용없음</div>
+										<div class="text_link">operationData_none.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">상세보기</div>
+										<div class="text_link">operationDataDetail.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">등록하기</div>
+										<div class="text_link">operationDataRegister.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+								<li>
+									<a class="mm_flex">
+										<div class="text_name">수정하기</div>
+										<div class="text_link">operationDataModify.html</div>
+										<div><span class="text_tag __tag_develop__"></span></div>
+										<div></div>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<!--// 운영 관리 -->
+			</div>
+			<!--// 운영 관리 -->
+		</div>
+		<!--// 인덱스 -->
+
+		<!-- 페이지 스크립트 -->
+		<script>
+			var $tag = mm.find('.text_tag');
+			var count = { _complete: 0, _develop: 0, _working: 0, _checking: 0, _recheck: 0, _ready: 0, _remove: 0 };
+
+			_.forEach($tag, function (__$tag) {
+
+				var $a = __$tag.closest('a');
+				var _class = __$tag.getAttribute('class');
+
+				if (_class.includes('complete')) {
+					count._complete++;
+					__$tag.textContent = '완료';
+				}
+				else if (_class.includes('develop')) {
+					count._develop++;
+					__$tag.textContent = '개발가능';
+				}
+				else if (_class.includes('working')) {
+					count._working++;
+					__$tag.textContent = '작업중';
+				}
+				else if (_class.includes('checking')) {
+					count._checking++;
+					__$tag.textContent = '검수중';
+				}
+				else if (_class.includes('recheck')) {
+					count._recheck++;
+					__$tag.textContent = '재검수';
+				}
+				else if (_class.includes('remove')) {
+					count._remove++;
+					__$tag.textContent = '삭제';
+
+					_.forEach(mm.siblings(__$tag.parentElement), function (__$el) {
+
+						mm.element.wrap(__$el, 'del', true);
+
+					});
+				}
+				else {
+					count._ready++;
+					__$tag.textContent = '미작업';
+					return;
+				}
+
+				mm.element.attribute($a, { 'href': mm.string.template('html/${LINK}', { LINK: mm.find('.text_link', $a)[0].textContent }), 'target': '_blank' });
+
+			});
+
+			console.log('총 페이지 수: ' + $tag.length);
+			console.log('완료: ' + count._complete);
+			console.log('개발가능: ' + count._develop);
+			console.log('삭제: ' + count._remove);
+			console.log('검수중: ' + count._checking);
+			console.log('재검수: ' + count._recheck);
+			console.log('작업중: ' + count._working);
+			console.log('미작업: ' + count._ready);
+		</script>
+	</div>
+</body>
+</html>

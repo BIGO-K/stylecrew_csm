@@ -1,0 +1,367 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../setting/const';
+@use '../setting/var';
+@use '../helper/mixin';
+
+/**
+ * 컴포넌트
+ * 버튼, 버튼그룹 등 버튼의 기본 단위
+**/
+
+
+//< 탭인덱스
+[tabindex] {
+	cursor: pointer;
+}
+//> 탭인덱스
+
+//< 기본형
+.mm_btn {
+	overflow: hidden;
+	position: relative;
+	padding: 0 9px;
+	width: auto;
+	height: 23px;
+	background-color: #555;
+	@include mixin.font(#fff '12px/23px' center);
+
+	.__ie10 & { line-height: 20px; }
+	.__ie11 &, .__edge & { line-height: 22px; }
+
+	&::after {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		border: 1px solid transparent;
+		content: '';
+	}
+
+	// 라운딩
+	&[class*="_round_"] {
+		padding-right: 10px;
+		width: auto;
+		border-radius: 23px;
+
+		&::after {
+			border-radius: 23px;
+		}
+	}
+
+	// 사이즈 - type, height, font-size (base 제외 / 없음 null)
+	$sizes: ('sm', 18px, 11px), ('xs', null, null), ('2xs', null, null),
+			('lg', 30px, 12px), ('xl', 45px, 14px), ('2xl', null, null);
+	@each $type, $height, $fontSize in $sizes {
+		&[class*="_#{$type}_"] {
+			@if ($type) == 'sm' {
+				padding: 0 5px;
+			}
+
+			@if ($height) {
+				height: $height;
+				@include mixin.font('#{$fontSize}/#{$height - 1}');
+
+				[class*="__ie1"] &, .__edge & { line-height: $height - 2; }
+			}
+
+			// 라운딩
+			&[class*="_round_"] {
+				border-radius: $height;
+
+				&::after {
+					border-radius: $height;
+				}
+			}
+		}
+	}
+
+	// 색상 - type, border-color, background-color, color (base 제외 / 없음 null)
+	$colors: ('light', null, null, null), ('lighter', null, null, null), ('lightest', null, null, null),
+			('dark', #333, #333, #fff), ('darker', null, null, null), ('darkest', null, null, null),
+			('primary', var.$color_primary_base, var.$color_primary_base, #fff), ('secondary', var.$color_secondary_base, var.$color_secondary_base), ('tertiary', var.$color_tertiary_base, var.$color_tertiary_base);
+	@each $type, $borderColor, $bgColor, $fontColor in $colors {
+		&[class*="_#{$type}_"] {
+			@if ($bgColor) {
+				background-color: $bgColor;
+				color: $fontColor;
+
+				&::after {
+					border-color: $borderColor;
+				}
+			}
+		}
+	}
+
+	// 라인 - type, border-color, color (base 제외 / 없음 null)
+	&[class*="_line_"] {
+		background-color: #fff;
+		color: #333;
+
+		&::after {
+			border-color: #555;
+		}
+
+		$lines: ('light', #999, #555), ('lighter', #d5d5d5, #555), ('lightest', null, null),
+				('dark', #333, #333), ('darker', null, null), ('darkest', null, null),
+				('primary', var.$color_primary_base, var.$color_primary_base), ('secondary', var.$color_secondary_base, var.$color_secondary_base),
+				('tertiary', var.$color_tertiary_base, var.$color_tertiary_base), ('transparent', transparent, null);
+		@each $type, $borderColor, $fontColor in $lines {
+			&[class*="_#{$type}_"] {
+				@if ($borderColor) {
+					color: $fontColor;
+
+					&::after {
+						border-color: $borderColor;
+					}
+				}
+			}
+		}
+	}
+
+	// button 비활성
+	&:disabled {
+		background-color: #eee;
+		color: #999 !important;
+
+		&::after {
+			border-color: #c7c7c7 !important;
+		}
+	}
+}
+//> 기본형
+
+//< 버튼 컨테이너
+.mm_btnbox {
+	@include mixin.clearfix;
+	text-align: center;
+
+	> .mm_btn {
+		width: 100%;
+
+		&:nth-child(n+2) {
+			margin-top: 4px;
+		}
+	}
+
+	.mm_inline,
+	.mm_rside,
+	.mm_lside {
+		@include mixin.font('0', nowrap);
+
+		> * {
+			&:nth-child(n+2) {
+				margin-left: 4px;
+			}
+		}
+	}
+
+	// 플렉스
+	&.mm_flex {
+		> * {
+			padding: 0;
+
+			&:nth-child(n+2) {
+				margin: 0 0 0 4px;
+			}
+		}
+	}
+
+	+ .mm_note {
+		margin-top: 26px;
+	}
+}
+
+.mm_foot {
+	margin-top: 30px;
+
+	.mm_btn {
+		padding: 0 15px;
+		width: auto;
+		min-width: 150px;
+	}
+
+	+ .mm_note {
+		margin-top: 30px;
+	}
+
+	+ form,
+	+ .mm_form,
+	+ .mm_formbox,
+	+ [class*="mm_table"] {
+		margin-top: 30px;
+	}
+}
+//> 버튼 컨테이너
+
+//< 버튼 스타일
+// 즐겨찾기 추가
+.btn_bookmark {
+	padding: 0 11px 0 10px !important;
+	border-color: #35374e;
+	color: #35374e !important;
+
+	.ico_star {
+		margin: 3px 3px 0 0;
+	}
+}
+
+// 검색
+.btn_search {
+	width: 90px;
+}
+
+// 새로고침/재조회
+.btn_refresh {
+	&.mm_btn {
+		.ico_refresh {
+			margin: 7px 3px 0 0;
+		}
+
+		&[class*="_sm_"] {
+			padding-right: 7px;
+
+			.ico_refresh {
+				margin: 4px 4px 0 3px;
+			}
+		}
+	}
+}
+
+// 도움말
+.btn_help {
+	.ico_help {
+		margin: 5px 4px 0 -1px;
+	}
+
+	&[class*="_sm_"] {
+		padding-right: 7px;
+
+		.ico_help {
+			margin: 4px 1px 0 2px;
+		}
+	}
+}
+
+// 더보기
+.btn_more,
+.btn_credit {
+	.ico_link {
+		margin: 6px 0 0 2px;
+	}
+}
+
+// 엑셀
+.btn_excel {
+	i {
+		margin: 5px 3px 0 -1px;
+
+		&.ico_check {
+			margin: 6px 3px 0 -1px;
+		}
+	}
+}
+
+// 등록하기
+.btn_register {
+	.ico_register {
+		margin: 5px 4px 0 -1px;
+	}
+
+	// 팝업등록
+	.ico_register-popup {
+		margin: 7px 4px 0 0;
+	}
+}
+
+// 택배사코드표
+.btn_code {
+	.ico_ship {
+		margin: 7px 3px 0 -1px;
+	}
+}
+
+// 입금표보기
+// .btn_credit {
+// 	.ico_credit {
+// 		margin: 6px 3px 0 1px;
+// 	}
+// }
+
+// 생플보기
+.btn_sample {
+	margin-left: 7px;
+	@include mixin.font(#666 '12px/23px' underline);
+
+	.__ie11 &, .__edge & { line-height: 21px; }
+}
+
+// 핫딜등록하기
+.btn_hotdeal-register {
+	.ico_hotdeal {
+		margin: 5px 4px 0 0;
+	}
+}
+
+// 순서편집
+.btn_sort,
+.btn_category-sort {
+	&-edit {
+		i {
+			margin: 6px 4px 0 0;
+		}
+	}
+
+	&-cancel,
+	&-complete {
+		i {
+			margin: 5px 3px 0 0;
+		}
+	}
+}
+
+// 이미지 보기
+.btn_preview {
+	// 이미지 미리보기 눈 버튼
+	&-toggle {
+		padding-left: 4px;
+
+		.ico_image-show {
+			margin-top: 3px;
+		}
+	}
+
+	// 이미지 보기, 미리보기 이미지
+	&-image {
+		padding: 0;
+		width: 82px;
+		height: auto;
+
+		&::after {
+			.__preview-on & {
+				display: none;
+			}
+		}
+
+		> b {
+			.__preview-on & {
+				display: none;
+			}
+		}
+
+		.image_preview {
+			display: none;
+
+			&.mm_image-none {
+				min-height: 82px;
+			}
+
+			.__preview-on & {
+				display: block;
+			}
+		}
+	}
+}
+//> 버튼 스타일

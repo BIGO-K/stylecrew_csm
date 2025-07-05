@@ -1,0 +1,203 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../setting/const';
+@use '../setting/var';
+@use '../helper/mixin';
+
+/**
+ * 컴포넌트
+ * 컨테이너, 박스, 섹션, 영역, 싱커, 플렉스 등 기본 공통영역
+**/
+
+
+//< 컨테이너
+// pc 최소사이즈
+.mm_container {
+	@include mixin.clearfix;
+	position: relative;
+	min-width: var.$minWidth_extend;
+}
+
+// min박스(pc)
+.mm_inner {
+	@include mixin.clearfix;
+	position: relative;
+	margin: 0 auto;
+	width: var.$minWidth_base;
+
+	&-middle {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: var.$height_footer_base;
+		left: 0;
+		text-align: center;
+
+		&::before {
+			margin-left: -2px;
+			width: 1px;
+			height: 100%;
+			vertical-align: middle;
+			content: '';
+		}
+	}
+}
+//> 컨테이너
+
+//< 싱커(연결자)
+[class^="mm_syncer"],
+[class*=" mm_syncer"] {
+	display: none;
+
+	&[class$="-use"],
+	&[class*="-use "] {
+		display: block;
+
+		@include mixin.context-unify(table) {
+			display: table;
+		}
+
+		@include mixin.context-unify(tbody) {
+			display: table-row-group;
+		}
+
+		@include mixin.context-unify(tr) {
+			display: table-row;
+		}
+
+		@include mixin.context-unify(td) {
+			display: table-cell;
+		}
+	}
+}
+//> 싱커(연결자)
+
+//< 디싱커(연결자/반대속성)
+[class^="mm_desyncer"],
+[class*=" mm_desyncer"] {
+	&[class$="-use"],
+	&[class*="-use "] {
+		display: none;
+	}
+}
+//> 디싱커(연결자/반대속성)
+
+//< 기본형 영역 (기본형에는 스타일 적용 안함)
+// 블럭
+.mm_block {
+	display: block;
+}
+
+// 인라인블럭
+.mm_inline {
+	display: inline-block;
+}
+
+// 왼쪽정렬
+.mm_lside {
+	float: left;
+	@include mixin.clearfix;
+}
+
+// 오른쪽정렬
+.mm_rside {
+	float: right;
+	@include mixin.clearfix;
+}
+
+// 전체영역 플로팅
+.mm_floating {
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	width: auto;
+	height: auto;
+}
+
+// 가변
+.mm_fluid {
+	@include mixin.fluid-media(100%);
+}
+
+//< 플렉스
+.mm_flex {
+	@include mixin.flex-container();
+
+	// 플렉스 column
+	&[class*="_column_"] {
+		@include mixin.flex-container(column);
+		min-height: 100%;
+	}
+
+	// 플렉스 자식요소 사이즈 비율
+	&[class*="_equal_"] {
+		> * {
+			@include mixin.prefix(flex, 1, webkit ms);
+			width: auto;
+			height: 100%;
+
+			> a,
+			> button {
+				display: block;
+				width: 100%;
+				text-align: center;
+
+				&:not(.mm_btn) {
+					height: 100%;
+				}
+			}
+		}
+	}
+
+	// 플렉스 자식요소 사이즈 자동
+	&[class*="_auto_"] {
+		> * {
+			@include mixin.prefix(flex, auto, webkit ms);
+			width: auto;
+			height: 100%;
+
+			> a,
+			> button {
+				display: block;
+				text-align: center;
+
+				&:not(.mm_btn) {
+					height: 100%;
+				}
+			}
+		}
+	}
+}
+//> 플렉스
+
+//< 플렉스 자식요소
+.mm_flex- {
+	// 사이즈 비율
+	&equal {
+		@include mixin.prefix(flex, 1, webkit ms);
+	}
+
+	// 사이즈 자동
+	&auto {
+		@include mixin.prefix(flex, auto, webkit ms);
+	}
+}
+//> 플렉스 자식요소
+
+//< 섹션
+.mm_section {
+	margin-top: 60px;
+
+	> .mm_heading {
+		padding-top: 0;
+	}
+
+	.mm_title + & {
+		margin-top: 4px;
+	}
+}
+//> 섹션

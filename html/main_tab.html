@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ko" class="__layout_main__">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no, address=no, email=no">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
+
+	<!-- 소셜태그 -->
+	<meta property="og:title" content="">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="">
+	<meta property="og:site_name" content="">
+	<!--// 소셜태그 -->
+
+	<title>스타일크루 CSAdmin</title>
+
+	<!-- 공통 css -->
+	<link rel="stylesheet" href="../css/lib.css">
+	<link rel="stylesheet" href="../css/app.css">
+	<!-- <link rel="stylesheet" data-css="{ '_href': '../css/font.css' }"> -->
+
+	<!-- (D) 폴리필/라이브러리는 요청을 줄이기 위해 combind + minify를 적용해주세요. -->
+	<!-- 폴리필/라이브러리 스크립트 -->
+	<script src="../js/polyfill/babel-polyfill-7.12.1.min.js"></script>
+	<script src="../js/polyfill/dom4-2.1.5.min.js"></script>
+	<script src="../js/polyfill/fetch.umd-3.6.2.min.js"></script>
+	<script src="../js/polyfill/intersection-observer-0.12.0.min.js"></script>
+	<script src="../js/polyfill/resize-observer-1.5.1.min.js"></script>
+	<script src="../js/lib/lodash-4.17.21.min.js"></script>
+	<script src="../js/lib/axios-0.21.1.min.js"></script>
+	<script src="../js/lib/load-image.all-5.14.0.min.js"></script>
+	<script src="../js/lib/sortable-1.13.0.min.js"></script>
+	<script src="../js/lib/gsap-3.6.1/gsap.min.js"></script>
+	<script src="../js/lib/jquery-3.6.0.min.js"></script>
+	<script src="../js/lib/editor-2.23.0/trumbowyg.min.js"></script>
+	<script src="../js/lib/editor-2.23.0/plugins/colors/trumbowyg.colors.js"></script>
+	<script src="../js/lib/editor-2.23.0/plugins/fontsize/trumbowyg.fontsize.min.js"></script>
+	<script src="../js/lib/editor-2.23.0/plugins/table/trumbowyg.table.min.js"></script>
+
+	<!-- 공통 스크립트 -->
+	<script src="../js/app_common.js"></script>
+	<script src="../js/app_page-common.js"></script>
+
+	<!-- (D) 페이지 전용 스크립트는 .mm_page-content 하단에 넣어주세요. -->
+</head>
+<body>
+	<div id="mm_app" class="mm_app">
+		<!-- 스킵 -->
+		<nav class="mm_skip">
+			<ul>
+				<li><a href="#mm_body" data-href="anchor">본문바로가기</a></li>
+			</ul>
+		</nav>
+		<!-- 스킵 -->
+
+		<!-- 브라우저접속 안내배너 -->
+		<div class="mm_access">
+			<!--[if lte ie 9]>
+			<div class="mm_access-inner">
+				<p class="mm_ir-blind">이 브라우저에서는 현재 사이트가 정상 동작하지 않으며, 제조사에 의한 업데이트 종료로 심각한 보안 위험을 초래할 수 있습니다. 크롬, 파이어폭스, 엣지 브라우저로 접속하시면 최적화된 환경에서 이용하실 수 있습니다.</p>
+				<a class="btn_chrome" href="https://www.google.com/chrome/" target="_blank" title="새 창 열림"><b class="mm_ir-blind">크롬 설치하기</b></a>
+				<a class="btn_firefox" href="https://www.mozilla.org/ko/firefox/new/" target="_blank" title="새 창 열림"><b class="mm_ir-blind">파이어폭스 설치하기</b></a>
+				<a class="btn_edge" href="https://www.microsoft.com/ko-kr/edge" target="_blank" title="새 창 열림"><b class="mm_ir-blind">엣지 설치하기</b></a>
+			</div>
+			<![endif]-->
+		</div>
+		<script>
+			if (mm.is.ie('ie')) {
+				var $access = mm.find('.mm_access')[0];
+				$access.innerHTML = $access.innerHTML.replace('<!-\-[if lte ie 9]>', '').replace('<![endif]-\->', '');
+			}
+		</script>
+		<!--// 브라우저접속 안내배너 -->
+
+		<!-- 화면 -->
+		<div class="mm_view">
+			<!-- 헤더 -->
+			<header class="mm_header">
+				<h1><a href="#" data-href="{ '_type': 'link' }"><b class="mm_ir-blind">스타일크루 CSAdmin</b></a></h1>
+				<!-- 헤더 바로가기 -->
+				<div class="mm_header-quick">
+					<div class="mm_rside">
+						<ul>
+							<li><p>안녕하세요. <span class="mm_text-secondary">관리자</span>님</p></li>
+							<li><a class="mm_btn __btn_line_lighter__" href="#" download><b>매뉴얼</b></a></li>
+							<li><button type="button" class="mm_btn __btn_line_lighter__"><b>로그아웃</b></button></li>
+						</ul>
+					</div>
+				</div>
+				<!--// 헤더 바로가기 -->
+
+				<!-- gnb -->
+				<div class="mm_gnb">
+					<div class="mm_inner">
+						<!-- 고객정보조회 -->
+						<div class="mm_gnb-inquiry">
+							<button type="button" class="mm_switch btn_inquiry" data-switch="{ '_defaultTitle': '펼쳐보기', '_title': '접어놓기', '_isParent': true, 'onChange': 'customerInquiryClose' }" title="펼쳐보기"><b>고객정보조회</b><i class="ico_dropdown"></i></button>
+							<div class="mm_gnb-inquiry-form">
+								<h6><b>고객정보조회</b></h6>
+								<form>
+									<div class="mm_search">
+										<table>
+											<tbody>
+												<tr>
+													<th></th><td></td><th></th><td></td><th></th><td></td><th></th><td></td>
+												</tr>
+												<tr>
+													<th scope="row"><b>고객명</b></th>
+													<td colspan="7">
+														<div class="mm_form-text">
+															<button type="button" class="btn_text-clear"><i class="ico_form-clear"></i><b class="mm_ir-blind">지우기</b></button>
+															<label>
+																<input type="text" class="textfield" data-text><i class="bg_text"></i>
+																<span class="text_placeholder mm_ir-blind">고객명</span>
+															</label>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row"><b>휴대폰 번호</b></th>
+													<td colspan="7">
+														<div class="mm_form-text">
+															<button type="button" class="btn_text-clear"><i class="ico_form-clear"></i><b class="mm_ir-blind">지우기</b></button>
+															<label>
+																<input type="text" class="textfield" data-text><i class="bg_text"></i>
+																<span class="text_placeholder mm_ir-blind">휴대폰 번호</span>
+															</label>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row"><b>전화번호</b></th>
+													<td colspan="7">
+														<div class="mm_form-text">
+															<button type="button" class="btn_text-clear"><i class="ico_form-clear"></i><b class="mm_ir-blind">지우기</b></button>
+															<label>
+																<input type="text" class="textfield" data-text><i class="bg_text"></i>
+																<span class="text_placeholder mm_ir-blind">전화번호</span>
+															</label>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row"><b>주문번호</b></th>
+													<td colspan="7">
+														<div class="mm_form-text">
+															<button type="button" class="btn_text-clear"><i class="ico_form-clear"></i><b class="mm_ir-blind">지우기</b></button>
+															<label>
+																<input type="text" class="textfield" data-text><i class="bg_text"></i>
+																<span class="text_placeholder mm_ir-blind">주문번호</span>
+															</label>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row"><b>제휴 주문번호</b></th>
+													<td colspan="7">
+														<div class="mm_form-text">
+															<button type="button" class="btn_text-clear"><i class="ico_form-clear"></i><b class="mm_ir-blind">지우기</b></button>
+															<label>
+																<input type="text" class="textfield" data-text><i class="bg_text"></i>
+																<span class="text_placeholder mm_ir-blind">제휴 주문번호</span>
+															</label>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row"><b>구매 제휴사</b></th>
+													<td colspan="7">
+														<div class="mm_form-select">
+															<label>
+																<select data-select>
+																	<option>전체</option>
+																</select>
+																<b class="text_selected"></b>
+																<i class="ico_form-select"></i>
+															</label>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row"><b>상품명</b></th>
+													<td colspan="7">
+														<div class="mm_form-text">
+															<button type="button" class="btn_text-clear"><i class="ico_form-clear"></i><b class="mm_ir-blind">지우기</b></button>
+															<label>
+																<input type="text" class="textfield" data-text><i class="bg_text"></i>
+																<span class="text_placeholder mm_ir-blind">상품명</span>
+															</label>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+										<div class="mm_note">
+											<ul>
+												<li>구매 제휴사 또는 상품명만 입력하여 검색할 수 없으니, <strong>그 외 다른 정보를 추가로 입력</strong>하여 검색 바랍니다.</li>
+												<li><strong>최근 2개월 내 주문한 고객</strong>에 대해서만 검색이 가능합니다.</li>
+												<li>최근 2개월 이전의 주문 검색은 <strong>주문 관리 &#62; 고객 주문 조회</strong> 페이지에서 검색 가능합니다.</li>
+											</ul>
+										</div>
+										<div class="mm_btnbox">
+											<div class="mm_inline">
+												<button type="button" class="mm_btn btn_search __btn_lg_dark__"><b>검색</b></button>
+											</div>
+										</div>
+									</div>
+									<input hidden>
+								</form>
+								<button type="button" class="btn_close" onclick="mm.switch.off('.btn_inquiry');"><i class="ico_close-popup"></i><b class="mm_ir-blind">고객정보조회 닫기</b></button>
+							</div>
+						</div>
+						<!--// 고객정보조회 -->
+						<ul class="mm_flex __flex_auto__">
+							<li>
+								<a href="#" data-href="{ '_type': 'link' }"><b>주문 관리</b></a>
+								<div class="mm_gnb-depth2">
+									<ul>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>고객 주문 조회</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>신규 주문 생성</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>SMS 발송 내역</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>적립금 지급 관리</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>쿠폰 사용 내역</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>입금 내역 현황</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>회원 정보 조회</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>회원 등급 변동 조회</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>휴면 회원 목록</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>탈퇴 처리</b></a></p></li>
+									</ul>
+								</div>
+							</li>
+							<li>
+								<a href="#" data-href="{ '_type': 'link' }"><b>게시판 관리</b></a>
+								<div class="mm_gnb-depth2">
+									<ul>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>자사몰 게시판(회원)</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>제휴사 게시판</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>CS 알리미</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>CS 알리미 템플릿 관리</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>제휴 게시판 통계 조회</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>게시판 통계 조회(통합)</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>개인별 처리건수</b></a></p></li>
+									</ul>
+								</div>
+							</li>
+							<li>
+								<a href="#" data-href="{ '_type': 'link' }"><b>환불 관리</b></a>
+								<div class="mm_gnb-depth2">
+									<ul>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>환불 관리</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>품절 전송 내역(주문 미생성)</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>DB 제휴사 선취소 내역</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>반품/교환 수거 관리</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>지원 부서 환불 관리</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>환불 없음</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>반품 자동 처리 관리</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>업체 오토 반품 처리</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>품절 처리 등록 내역</b></a></p></li>
+									</ul>
+								</div>
+							</li>
+							<li>
+								<a href="#" data-href="{ '_type': 'link' }"><b>클레임 관리</b></a>
+								<div class="mm_gnb-depth2">
+									<ul>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>상담 정보 조회</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>취소 내역</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>교환 내역</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>반품 내역</b></a></p></li>
+									</ul>
+								</div>
+							</li>
+							<li>
+								<a href="#" data-href="{ '_type': 'link' }"><b>보상/패널티 관리</b></a>
+								<div class="mm_gnb-depth2">
+									<ul>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>배송 지연 신고 내역</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>품절 보상 신고 내역</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>환불/적립금 지급(정산 차감)</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>협력사 배송료 등록</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>가송장 관리</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>협력사 패널티 내역</b></a></p></li>
+									</ul>
+								</div>
+							</li>
+							<li>
+								<a href="#" data-href="{ '_type': 'link' }"><b>배송 관리</b></a>
+								<div class="mm_gnb-depth2">
+									<ul>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>미배송 조회</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>송장 수정 관리</b></a></p></li>
+									</ul>
+								</div>
+							</li>
+							<li>
+								<a href="#" data-href="{ '_type': 'link' }"><b>상품/협력사 관리</b></a>
+								<div class="mm_gnb-depth2">
+									<ul>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>일반 사용자 관리</b></a></p></li>
+									</ul>
+								</div>
+							</li>
+							<li>
+								<a href="#" data-href="{ '_type': 'link' }"><b>운영 관리</b></a>
+								<div class="mm_gnb-depth2">
+									<ul>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>공지사항</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>업무 공지사항</b></a></p></li>
+										<li><p><a href="#" data-href="{ '_type': 'link' }"><b>자료실</b></a></p></li>
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!--// gnb -->
+			</header>
+			<!--// 헤더 -->
+
+			<!-- 내용 -->
+			<div id="mm_body" class="mm_page">
+				<!-- 최근 본 메뉴 -->
+				<section class="mm_lately">
+					<div class="mm_inline">
+						<h6><i class="ico_star"></i><b>최근 본 메뉴</b></h6>
+						<ul>
+							<!-- (D) 최근 본 메뉴 첫번째 영역에 메인 페이지는 기본으로 노출되고, 삭제 할 수 없습니다. -->
+							<li class="__lately-on"><a class="btn_lately" href="#" title="선택됨"><b>메인 페이지</b></a></li>
+							<li>
+								<a class="btn_lately" href="#"><b>고객 주문 조회</b></a>
+								<button type="button" class="btn_remove"><b class="mm_ir-blind">삭제</b><i class="ico_remove"></i></button>
+							</li>
+							<li>
+								<a class="btn_lately" href="#"><b>회원 등급 변동 조회</b></a>
+								<button type="button" class="btn_remove"><b class="mm_ir-blind">삭제</b><i class="ico_remove"></i></button>
+							</li>
+							<li>
+								<a class="btn_lately" href="#"><b>자사몰 게시판(회원)</b></a>
+								<button type="button" class="btn_remove"><b class="mm_ir-blind">삭제</b><i class="ico_remove"></i></button>
+							</li>
+							<li>
+								<a class="btn_lately" href="#"><b>환불 관리</b></a>
+								<button type="button" class="btn_remove"><b class="mm_ir-blind">삭제</b><i class="ico_remove"></i></button>
+							</li>
+							<li>
+								<a class="btn_lately" href="#"><b>반품 철회 관리</b></a>
+								<button type="button" class="btn_remove"><b class="mm_ir-blind">삭제</b><i class="ico_remove"></i></button>
+							</li>
+							<li>
+								<a class="btn_lately" href="#"><b>상담 정보 조회</b></a>
+								<button type="button" class="btn_remove"><b class="mm_ir-blind">삭제</b><i class="ico_remove"></i></button>
+							</li>
+							<li>
+								<a class="btn_lately" href="#"><b>취소 내역</b></a>
+								<button type="button" class="btn_remove"><b class="mm_ir-blind">삭제</b><i class="ico_remove"></i></button>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<!--// 최근 본 메뉴 -->
+
+				<!-- lnb -->
+				<div class="mm_lnb __switch-on">
+					<div class="mm_lnb-inner">
+						<div class="mm_scroller">
+							<section>
+								<h6><b>게시판 미처리</b></h6>
+								<dl>
+									<dt>자사몰(회원) 게시판</dt>
+									<dd><a href="#" data-href="{ '_type': 'link' }"><strong>1,234</strong><span>건</span></a></dd>
+									<dt>제휴사 게시판</dt>
+									<dd><a class="text_loading"><i class="ico_loading __loading_sm__ __ani-spin"></i><span>조회 중</span></a></dd>
+									<dt>CS 알리미</dt>
+									<dd><a href="#" data-href="{ '_type': 'link' }"><strong>74</strong><span>건</span></a></dd>
+								</dl>
+								<button type="button" class="mm_btn btn_refresh __btn_sm_line_lighter__"><i class="ico_refresh"></i><b>재조회</b></button>
+							</section>
+							<section>
+								<h6><b>업무 미처리</b></h6>
+								<dl>
+									<dt>환불지연 관리</dt>
+									<dd><a href="#" data-href="{ '_type': 'link' }"><strong>1,234</strong><span>건</span></a></dd>
+									<dt>제휴사 선취소</dt>
+									<dd><a href="#" data-href="{ '_type': 'link' }"><strong>0</strong><span>건</span></a></dd>
+									<dt>배송지연신고</dt>
+									<dd><a href="#" data-href="{ '_type': 'link' }"><strong>57</strong><span>건</span></a></dd>
+									<dt>미배송 조회</dt>
+									<dd><a href="#" data-href="{ '_type': 'link' }"><strong>640</strong><span>건</span></a></dd>
+									<dt>상담조회(고객약속)</dt>
+									<dd><a href="#" data-href="{ '_type': 'link' }"><strong>1</strong><span>건</span></a></dd>
+									<dt>상담조회(업체확인필요)</dt>
+									<dd><a href="#" data-href="{ '_type': 'link' }"><strong>30</strong><span>건</span></a></dd>
+									<dt>상담조회(제휴사확인필요)</dt>
+									<dd><a href="#" data-href="{ '_type': 'link' }"><strong>62</strong><span>건</span></a></dd>
+								</dl>
+								<button type="button" class="mm_btn btn_refresh __btn_sm_line_lighter__"><i class="ico_refresh"></i><b>재조회</b></button>
+							</section>
+							<section>
+								<h6><b>즐겨찾기</b></h6>
+								<ul>
+									<li>
+										<a href="#" data-href="{ '_type': 'link' }"><b>고객 주문 조회</b></a>
+										<button type="button" class="btn_remove"><b class="mm_ir-blind">삭제</b><i class="ico_remove __remove_line__"></i></button>
+									</li>
+									<li>
+										<a href="#" data-href="{ '_type': 'link' }"><b>신규 주문 생성</b></a>
+										<button type="button" class="btn_remove"><b class="mm_ir-blind">삭제</b><i class="ico_remove __remove_line__"></i></button>
+									</li>
+									<li>
+										<a href="#" data-href="{ '_type': 'link' }"><b>게시판 통계 조회(등급별)</b></a>
+										<button type="button" class="btn_remove"><b class="mm_ir-blind">삭제</b><i class="ico_remove __remove_line__"></i></button>
+									</li>
+									<li>
+										<a href="#" data-href="{ '_type': 'link' }"><b>취소 내역</b></a>
+										<button type="button" class="btn_remove"><b class="mm_ir-blind">삭제</b><i class="ico_remove __remove_line__"></i></button>
+									</li>
+									<li>
+										<a href="#" data-href="{ '_type': 'link' }"><b>일반 사용자 관리</b></a>
+										<button type="button" class="btn_remove"><b class="mm_ir-blind">삭제</b><i class="ico_remove __remove_line__"></i></button>
+									</li>
+									<li>
+										<a href="#" data-href="{ '_type': 'link' }"><b>공지사항</b></a>
+										<button type="button" class="btn_remove"><b class="mm_ir-blind">삭제</b><i class="ico_remove __remove_line__"></i></button>
+									</li>
+									<li>
+										<a href="#" data-href="{ '_type': 'link' }"><b>DB 제휴사 선취소 내역</b></a>
+										<button type="button" class="btn_remove"><b class="mm_ir-blind">삭제</b><i class="ico_remove __remove_line__"></i></button>
+									</li>
+								</ul>
+								<button type="button" class="btn_remove"><b>전체삭제</b><i class="ico_remove __remove_line__"></i></button>
+
+								<!-- (D) 즐겨찾기가 없을 때 즐겨찾기 목록과 전체삭제 버튼은 비노출된 상태로 아래 문구가 노출됩니다. -->
+								<!-- <p class="mm_text-none">즐겨찾기가 없습니다</p> -->
+							</section>
+							<button type="button" class="mm_switch" data-switch="{ '_defaultTitle': '펼쳐보기', '_title': '접어놓기', '_isParent': true, '_parentSelector': '.mm_lnb' }" title="펼쳐보기"><b class="mm_ir-blind">사이드바</b><i class="ico_toggle"></i></button>
+						</div>
+					</div>
+				</div>
+				<!--// lnb -->
+
+				<!-- 본문 -->
+				<div class="mm_page-content">
+					<!-- (D) 실제 내용을 추가하는 부분입니다. -->
+
+					<!-- 본문 내용 -->
+					<ul class="m_main-lately">
+						<li class="__lately-on"><iframe class="m_main-latelyframe" data-lazyload="{ '_src': '_iframe_main.html', 'onBefore': 'frameLoadBefore' }"></iframe></li>
+						<li><iframe class="m_main-latelyframe" data-lazyload="{ '_src': '_iframe_orderList.html', 'onBefore': 'frameLoadBefore' }"></iframe></li>
+					</ul>
+					<!--// 본문 내용 -->
+
+					<!-- 현재 페이지 스크립트 -->
+					<script>
+						// 최근본메뉴 탭구조
+						(function () {
+
+							var _classOn = '__lately-on';
+
+							mm.delegate.on(document, '.mm_lately .btn_lately', 'click', function (__e) {
+
+								__e.preventDefault();
+
+								var $btns = mm.find('.mm_lately .btn_lately');
+								mm.element.attribute($btns, { 'title': '' });
+								mm.class.remove(_.map($btns, function (__$btn) { return __$btn.parentElement; }), _classOn);
+
+								this.setAttribute('title', '선택됨');
+								this.parentElement.classList.add(_classOn);
+
+								var $content = mm.find('.m_main-lately li');
+								mm.class.remove($content, _classOn);
+								$content[mm.element.index($btns, this)].classList.add(_classOn);
+
+							});
+
+						})();
+
+						function frameLoadBefore() {
+
+							mm.element.attribute(this, { 'scrolling': 'yes', 'style': '' });
+
+						}
+					</script>
+				</div>
+				<!--// 본문 -->
+
+				<!-- 푸터 -->
+				<footer id="mm_footer" class="mm_footer">
+					<div class="mm_lside">
+						<h6><b class="mm_ir-blind">스타일크루 CSAdmin</b></h6>
+					</div>
+					<div class="mm_rside">
+						<div class="mm_btnbox">
+							<div class="mm_inline">
+								<a class="mm_btn btn_fashionplus-scm __btn_line_lighter__" href="#" target="_blank" title="새 창 열림"><i class="image_logo"></i><b class="mm_ir-blind">패션플러스 SCM</b></a>
+								<a class="mm_btn btn_scm __btn_line_lighter__" href="#" target="_blank" title="새 창 열림"><i class="image_logo"></i><b class="mm_ir-blind">스타일크루 SCM</b></a>
+								<a class="mm_btn btn_fashionplus __btn_line_lighter__" href="#" target="_blank" title="새 창 열림"><i class="image_logo"></i><b class="mm_ir-blind">패션플러스</b></a>
+								<a class="mm_btn btn_moda __btn_line_lighter__" href="#" target="_blank" title="새 창 열림"><i class="image_logo"></i><b class="mm_ir-blind">모다아울렛</b></a>
+								<a class="mm_btn btn_stylecrew __btn_line_lighter__" href="#" target="_blank" title="새 창 열림"><i class="image_logo"></i><b class="mm_ir-blind">스타일크루</b></a>
+							</div>
+						</div>
+					</div>
+				</footer>
+				<!--// 푸터 -->
+			</div>
+			<!--// 내용 -->
+		</div>
+		<!--// 화면 -->
+	</div>
+</body>
+</html>

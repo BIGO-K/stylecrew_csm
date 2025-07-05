@@ -1,0 +1,304 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/mixin';
+
+/**
+ * 코어
+ * reset
+**/
+
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	background-clip: padding-box;
+	vertical-align: top;
+	color: inherit;
+	font: inherit;
+	letter-spacing: inherit;
+	word-break: inherit;
+
+	&::before,
+	&::after {
+		display: inline-block;
+		box-sizing: border-box;
+		vertical-align: top;
+		font: inherit;
+		letter-spacing: inherit;
+		word-break: inherit;
+	}
+}
+
+:focus {
+	// outline: thin dotted;
+
+	@include mixin.context-unify('[tabindex], a, area, button, input, object, select, textarea') {
+		// outline: thin dotted;
+	}
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+	display: block;
+}
+
+audio,
+canvas,
+progress,
+video {
+	display: inline-block;
+	vertical-align: baseline;
+}
+
+audio {
+	&:not([controls]) {
+		display: none;
+	}
+}
+
+q {
+	&::before,
+	&::after {
+		content: none;
+	}
+}
+
+ul,
+ol,
+li {
+	list-style: none;
+}
+
+ul,
+ol,
+dl {
+	@include mixin.clearfix;
+}
+
+table {
+	table-layout: fixed;
+	width: 100%;
+	max-width: 100%;
+	border-spacing: 0;
+
+	caption {
+		text-align: left;
+	}
+
+	th,
+	td {
+		vertical-align: middle;
+		text-align: center;
+	}
+}
+
+address {
+	font-style: normal;
+}
+
+label {
+	display: inline-block;
+}
+
+a {
+	display: inline-block;
+	text-decoration: none;
+}
+
+b,
+i {
+	display: inline-block;
+}
+
+hr {
+	height: 0;
+	border: 0;
+	-webkit-margin-before: 0;
+	-webkit-margin-after: 0;
+}
+
+pre {
+	white-space: pre-line;
+}
+
+fieldset {
+	border: 0;
+}
+
+iframe:not([width]):not([height]) {
+	display: block;
+	min-width: 100%;
+	width: 0;
+	height: 100%;
+	border: 0;
+	vertical-align: baseline;
+
+	&[height="0"] {
+		visibility: hidden;
+		position: absolute;
+		height: 0;
+	}
+}
+
+svg {
+	&:not(:root) {
+		overflow: hidden;
+	}
+}
+
+img,
+legend {
+	border: 0;
+}
+
+img {
+	width: 100%;
+	// max-width: 100%;
+}
+
+textarea {
+	// ios에서 가로 padding 3px 줄여 적용
+	border-radius: 0;
+	resize: none;
+	@include mixin.prefix(appearance, none, webkit moz);
+
+	&::-webkit-input-placeholder {
+		text-indent: 3px;
+
+		@include mixin.context-unify(':focus') {
+			// opacity: 0;
+		}
+	}
+
+	@include mixin.media('min-resolution: .001dpcm') {
+		// chrome
+		&::-webkit-input-placeholder {
+			text-indent: 0;
+		}
+	}
+}
+
+input {
+	&:not([type="radio"]) {
+		border-radius: 0;
+		resize: none;
+	}
+
+	&::-ms-clear {
+		display: none;
+	}
+
+	&::-moz-focus-inner {
+		padding: 0;
+		border: 0;
+	}
+
+	&::-webkit-inner-spin-button,
+	&::-webkit-outer-spin-button,
+	&::-webkit-search-cancel-button,
+	&::-webkit-calendar-picker-indicator
+	&::-webkit-clear-button {
+		display: none;
+		margin: 0;
+		@include mixin.prefix(appearance, none, webkit moz);
+	}
+
+	&::-webkit-search-decoration,
+	&::-webkit-search-cancel-button,
+	&::-webkit-search-results-button,
+	&::-webkit-search-results-decoration {
+	  display: none;
+	}
+
+	&::-webkit-input-placeholder {
+		padding-top: 2px;
+
+		@include mixin.context-unify(':focus') {
+			// opacity: 0;
+		}
+	}
+
+	@include mixin.media('min-resolution: .001dpcm') {
+		// chrome
+		&::-webkit-input-placeholder {
+			padding-top: 1px;
+		}
+	}
+
+	&[type="button"],
+	&[type="reset"],
+	&[type="submit"],
+	&[type="file"] {
+		cursor: pointer;
+	}
+
+	&[type="number"],
+	&[type="email"],
+	&[type="password"],
+	&[type="search"],
+	&[type="tel"],
+	&[type="text"],
+	&[type="url"],
+	&[type*="date"],
+	&[type="month"],
+	&[type="time"],
+	&[type="week"] {
+		border: 1px solid #000;
+		@include mixin.prefix(appearance, none, webkit moz);
+	}
+}
+
+button {
+	overflow: hidden;
+	border: 0;
+	border-radius: 0;
+	background-color: transparent;
+	cursor: pointer;
+
+	&::-moz-focus-inner {
+		padding: 0;
+		border: 0;
+	}
+
+	// span,
+	// strong,
+	// i,
+	// b
+	> *:not([class*="ico_"]) {
+		display: inline-block;
+		position: relative;
+		height: 100%;
+	}
+
+	> [class*="ico_"] {
+		position: relative;
+	}
+}
+
+select {
+	border-radius: 0;
+	cursor: pointer;
+}
+
+template,
+[hidden] {
+	display: none;
+}
+
+[disabled] {
+	cursor: default;
+}

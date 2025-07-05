@@ -1,0 +1,179 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../setting/const';
+@use '../setting/var';
+@use '../helper/mixin';
+
+/**
+ * 컴포넌트
+ * 그리드
+**/
+
+
+html,
+body {
+	width: 100%;
+	min-width: var.$minWidth_extend;// 좌/우 날개배너 포함
+	height: 100%;
+}
+
+html {
+	overflow-y: scroll;// pc 스크롤바 기본 삽입
+	background-color: transparent;
+	@include mixin.font(var.$color_text_base normal '#{const.$fontSize_base}/1' [var.$fontFamily_base], -0.2px);
+	word-break: break-all;
+	@include mixin.prefix(text-size-adjust, none, webkit ms);
+
+	// 스크롤 안됨(스크립트로 적용)
+	&.__noscroll {
+		// overflow: hidden;
+	}
+}
+
+body {
+	background-color: #fff;
+	image-rendering: -webkit-optimize-contrast;// 파폭(-moz-crisp-edges)은 적용하면 더 깨져보임
+	// @include mixin.prefix(user-select, none, webkit ms);// 본문 드래그 선택 방지
+	-webkit-touch-callout: none;
+}
+
+//< 스킵 네비게이션
+.mm_skip {
+	position: absolute;
+	z-index: const.$zIndex_skip;
+	top: 0;
+	left: 0;
+	@include mixin.font('0/1');
+
+	a:focus {
+		padding: 10px;
+		background-color: var.$color_primary_base;
+		@include mixin.font(#fff 700 '12px');
+	}
+}
+//> 스킵 네비게이션
+
+//< 브라우저 접속 안내 배너
+.mm_access {
+	&-inner {
+		position: relative;
+		height: 130px;
+		border-bottom: 1px solid #e1e1e1;
+		@include mixin.background(#fff url('https://image.stylecrew.co.kr/mall/publish/csm/common/access_banner.png') '50% 0' no-repeat);
+	}
+
+	[class*="btn_"] {
+		position: absolute;
+		top: 23px;
+		left: 50%;
+		margin-left: 90px;
+		width: 75px;
+		height: 83px;
+		background-image: url(const.$image_empty);
+	}
+
+	.btn_chrome {
+		margin-left: 159px;
+	}
+
+	.btn_firefox {
+		margin-left: 281px;
+	}
+
+	.btn_edge {
+		margin-left: 411px;
+	}
+}
+//> 브라우저 접속 안내 배너
+
+//< 전체 영역
+.mm_app {
+	position: relative;
+	height: 100%;
+}
+//> 전체 영역
+
+//< 기본 화면
+.mm_view {
+	position: relative;
+	padding-top: var.$height_header_base;
+	height: 100%;
+}
+//> 기본 화면
+
+//< 페이지
+.mm_page {
+	position: relative;
+	padding-bottom: var.$height_footer_base;
+	min-height: 100%;
+
+	// 페이지 본문
+	&-content {
+		html:not([class*="_main_"]) & {
+			// padding: 0 calc((100% - #{var.$minWidth_extend}) / 2 * 0.664) 100px;// (1920 - 1360[최소값]) / 2[좌|우] * 0.664[1920 일 때 여백 / 곱하기 전 좌|우여백]
+			padding: 0 0 100px;
+		}
+
+		.mm_container {
+			padding: 0 105px;
+		}
+	}
+}
+//> 페이지
+
+//< 로그인
+html[class*="_login_"] {
+	body {
+		background-color: #f9f9f9;
+	}
+
+	.mm_view {
+		padding-top: 0;
+	}
+
+	.mm_container {
+		position: static;
+	}
+}
+//> 로그인
+
+//< 아이프레임 페이지 (modal, popup 제외)
+html[class*="_frame_"] {
+	overflow-y: scroll;
+
+	.mm_view {
+		padding-top: 0;
+	}
+
+	.mm_page {
+		padding-bottom: 0;
+	}
+}
+//> 아이프레임 페이지 (modal, popup 제외)
+
+//< 메인 페이지 (탭구조)
+html[class*="_main_"] {
+	overflow: hidden;
+	min-width: 0;
+
+	body {
+		min-width: 0;
+	}
+
+	.mm_page {
+		padding-top: 44px;
+		height: 100%;
+
+		&-content {
+			height: 100%;
+		}
+	}
+}
+//> 메인 페이지 (탭구조)
+
+//< 레이어,윈도우팝업
+// html[class*="_customPop_"] {
+//
+// }
+//> 레이어,윈도우팝업

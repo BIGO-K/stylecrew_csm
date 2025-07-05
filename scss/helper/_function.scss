@@ -1,0 +1,162 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+
+/**
+ * 헬퍼
+ * 추가 기능
+
+ * *: string
+ * ?: quote(string), unquote(string),
+ * ?: str-index(string, substring), str-insert(string, insert, index), str-slice(string, start index, end index)
+ * ?: str-length(string)
+ * ?: to-lower-case(s), to-upper-case(s)
+
+ * *: number
+ * ?: abs(number), ceil(number), floor(number), round(number), max(number), min(number)
+ * ?: percentage(number), random(), random(number)
+ * ?: comparable(number1, number2):boolean
+
+ * *: list
+ * ?: append(list, value, [separator(comma)]), join(list1, list2, [separator(comma), bracketed($bracketed: true)])
+ * ?: index(list, value), length(list)
+ * ?: list-separator(list):space/comma, nth(list, index), set-nth(list, index, value), zip(...list)
+ * ?: is-bracketed(list):boolean
+
+ * *: map
+ * ?: map-get(map, key), map-keys(map), map-values(map), map-merge(map1, map2), map-remove(map, ...key)
+ * ?: map-has-key(map, key):boolean
+
+ * *: selector
+ * ?: selector-append(...selector), selector-replace(selector, original, replacement), selector-unify(selector1, selector2)
+ * ?: selector-extend(selector, extendee, extender), selector-nest(...selector)
+ * ?: selector-parse(selector), simple-selectors(selector)
+ * ?: is-superselector(super, sub):boolean
+
+ * *: meta
+ * ?: type-of(value):number/string/color/list/map/bool/null/function/arglist
+ * ?: inspect(value), call(function ...args), keywords($args)
+ * ?: unit(number), unitless(number):boolean
+
+ * *: color
+ * ?: grayscale(color), complement(color), invert(color)
+ * ?: rgba(color, %), lighten(color, %), darken(color, %), saturate(color, %), desaturate(color, %), mix(color1, color2, %)
+ * ?: opacify(color, 0~1), fade-in(color, 0~1), fade-out(color, 0~1), transparentize(color, 0~1)
+**/
+
+
+//< 문자열 자르기
+@function str-split($string, $separator: '') {
+
+	@if type-of($string) != 'string' {
+		@return $string;
+	}
+
+	$splits: ();
+	$index: str-index($string, $separator);
+
+	@if $separator == '' {
+		@for $i from 1 through str-length($string) {
+			$splits: append($splits, unquote(str-slice($string, $i, $i)));
+		}
+	}
+	@else {
+		$index: str-index($string, $separator);
+		@while $index != null {
+			$splits: append($splits, unquote(str-slice($string, 1, $index - 1)));
+			$string: str-slice($string, $index + str-length($separator));
+			$index: str-index($string, $separator);
+		}
+		$splits: append($splits, unquote($string));
+	}
+	// @debug $splits;
+	@return $splits;
+
+}
+//> 문자열 자르기
+
+//< 문자열 마지막 index 찾기
+@function str-last-index($string, $substr) {
+
+	$splits: str-split($string, $substr);
+	$index: str-length($string) - str-length($substr) - str-length(nth($splits, length($splits))) + 1;
+	@return if($index < 1, null, $index);
+
+}
+//> 문자열 마지막 index 찾기
+
+//< 문자열로 합치기
+@function str-join($list, $separator: '') {
+
+	@if type-of($list) != 'list' {
+		@return $list;
+	}
+
+	$string: '';
+
+	@for $i from 1 through length($list) {
+		@if $i == 1 {
+			$string: nth($list, $i);
+		}
+		@else {
+			$string: $string + $separator + nth($list, $i);
+		}
+	}
+
+	@return $string;
+
+}
+//> 문자열로 합치기
+
+//< 문자열 변경
+@function str-replace($string, $substr, $replace: '') {
+
+	@return str-join(str-split($string, $substr), $replace);
+
+}
+//> 문자열 변경
+
+//< 문자 숫자로 변경
+@function to-number($string) {
+
+	@if type-of($string) != 'string' {
+		@return $string;
+	}
+
+	$numbers: ('0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9);
+	$result: 0;
+	$digit: 0;
+	$isMinus: str-slice($string, 1, 1) == '-';
+
+	@for $i from if($isMinus, 2, 1) through str-length($string) {
+		$char: str-slice($string, $i, $i);
+
+		@if $char == '.' {
+			$digit: 1;
+		}
+		@else {
+			@if $digit == 0 {
+				$result: $result * 10 + map-get($numbers, $char);
+			} @else {
+				$digit: $digit * 10;
+				$result: $result + map-get($numbers, $char) / $digit;
+			}
+		}
+	}
+
+	@return if($isMinus, -$result, $result);
+}
+//> 문자 숫자로 변경
+
+//< 색상 변경
+@function brightness($color, $percentage) {
+
+	@return mix(white, $color, $percentage);
+
+}
+@function darkness($color, $percentage) {
+
+	@return mix(black, $color, $percentage);
+
+}
+//> 색상 변경

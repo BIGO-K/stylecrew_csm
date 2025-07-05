@@ -1,0 +1,25 @@
+@charset 'utf-8';
+
+@forward 'setting/reset';
+
+@forward 'component/block';
+@forward 'component/bom';
+@forward 'component/button';
+@forward 'component/form';
+@forward 'component/grid';
+@forward 'component/image';
+@forward 'component/list';
+@forward 'component/part';
+@forward 'component/text';
+
+@forward 'layout/footer';
+@forward 'layout/header';
+@forward 'layout/nav';
+@forward 'layout/popup';
+
+@forward 'page/error';
+@forward 'page/login';
+@forward 'page/main';
+@forward 'page/order';
+@forward 'page/board';
+@forward 'page/operation';

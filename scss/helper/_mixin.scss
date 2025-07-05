@@ -1,0 +1,671 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function' as *;
+
+/**
+ * 헬퍼
+ * 믹스인
+**/
+
+
+//< 플렉스
+// 	.foo {
+// 		@include flex()
+// 	}
+@mixin flex-container($direction: row, $wrap: nowrap) {
+
+	display: -ms-flexbox;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+
+	@if $direction == column {
+		-webkit-box-orient: vertical;
+		@include prefix(flex-direction, $direction, webkit ms);
+	}
+
+	@if $wrap == wrap {
+		@include prefix(flex-wrap, $wrap, webkit ms);
+	}
+
+}
+//> 플렉스
+
+//< 미디어 컨텐츠
+// youtube, image 등 가로 사이즈에 맞게 유연한 높이 적용이 필요한 경우
+// 부모 요소에 적용
+// 	.foo {
+// 		@include fluid-media(100%, 0);
+// 	}
+@mixin fluid-media($padding-top: 56.25%, $padding-bottom: 0) {
+
+	overflow: hidden;
+	position: relative;
+	padding-top: $padding-top;
+	padding-bottom: $padding-bottom;
+	width: 100%;
+	height: 0;
+	@include font('0/1');
+
+	> * {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	}
+
+}
+//> 미디어 컨텐츠
+
+//< clearfix
+//	.foo {
+//		@include clearfix();
+//	}
+@mixin clearfix() {
+
+	&::after {
+		display: block;
+		clear: both;
+		content: '';
+	}
+
+}
+//> clearfix
+
+//< prefix
+//	.foo {
+//		@include prefix(transform, rotate(45deg), webkit ms);
+//		@include prefix(transform, rotate(45deg), ('webkit', 'ms'));
+//	}
+@mixin prefix($property, $value, $prefixes: ()) {
+
+	@if $property == flex {
+		-webkit-box-flex: $value;
+		min-width: 0;
+	}
+	@else if $property == flex-direction {
+		@if $value == row {
+			-webkit-box-orient: horizontal;
+		}
+		@else if $value == row-reverse {
+			-webkit-box-orient: horizontal;
+			-webkit-box-direction: reverse;
+		}
+		@else if $value == column {
+			-webkit-box-orient: vertical;
+		}
+		@else if $value == column-reverse {
+			-webkit-box-orient: vertical;
+			-webkit-box-direction: reverse;
+		}
+	}
+	@else if $property == flex-wrap {
+		@if $value == wrap {
+			-webkit-box-lines: multiple;
+		}
+		@else {
+			-webkit-box-lines: single;
+		}
+	}
+	@else if $property == align-items {
+		@if $value == flex-start {
+			-webkit-box-align: start;
+			-ms-flex-align: start;
+		}
+		@else if $value == flex-end {
+			-webkit-box-align: end;
+			-ms-flex-align: end;
+		}
+		@else if $value == center {
+			-webkit-box-align: center;
+			-ms-flex-align: center;
+		}
+		@else {
+			-webkit-box-align: $value;
+			-ms-flex-align: $value;
+		}
+	}
+	@else if $property == align-self {
+		@if $value == flex-start {
+			-ms-grid-row-align: start;
+		}
+		@else if $value == flex-end {
+			-ms-grid-row-align: end;
+		}
+		@else {
+			-ms-grid-row-align: $value;
+		}
+	}
+	@else if $property == justify-content {
+		@if $value == flex-start {
+			-webkit-box-pack: start;
+			-ms-flex-pack: start;
+		}
+		@else if $value == flex-end {
+			-webkit-box-pack: end;
+			-ms-flex-pack: end;
+		}
+		@else if $value == center {
+			-webkit-box-pack: center;
+			-ms-flex-pack: center;
+		}
+		@else if $value == space-between {
+			-webkit-box-align: justify;
+			-ms-flex-pack: justify;
+		}
+	}
+
+	@each $prefix in $prefixes {
+		-#{$prefix}-#{$property}: $value;
+	}
+	#{$property}: $value;
+
+}
+//> prefix
+
+//< browser hack
+@mixin hack($browser) {
+
+	@if $browser == ie11 {
+		@at-root #{'_:-ms-lang(x)::-ms-backdrop, '} #{&} {
+			@content;
+		}
+	}
+	@else if $browser == edge {
+		@at-root #{'_:-ms-lang(x)::backdrop, '} #{&} {
+			@content;
+		}
+	}
+
+}
+//> browser hack
+
+//< transform + backface-visibility
+@mixin transform($value, $origin: null, $visibility: visible) {
+
+	@include prefix(transform, $value, webkit ms);
+	@if $origin {
+		@include prefix(transform-origin, $origin, webkit ms);
+	}
+	@if $visibility == hidden {
+		@include prefix(backface-visibility, hidden, webkit);
+	}
+
+}
+//> transform + backface-visibility
+
+//< transition
+@mixin transition($args...) {
+
+	@include prefix(transition, $args, webkit);
+
+}
+//> transition
+
+//< gradient
+@mixin linear-gradient($defaultColor, $angle, $colors...) {
+
+	background-color: $defaultColor;
+	background-image: -webkit-linear-gradient($angle, $colors);
+	background-image: linear-gradient($angle, $colors);
+
+}
+//> gradient
+
+//< 백그라운드 속성 분할
+// color: transparent color # rgb rgba hsl hsla
+// url: none url()
+// position: center left top right bottom >> 50% 50% 변경 / length
+// size: auto length % cover contain
+// repeat: repeat repeat-x repeat-y no-repeat space round
+// clip: border-box padding-box content-box
+// origin: padding-box border-box content-box
+// attachment: scroll fixed local
+// 	.foo {
+// 		@include mixin.background(color url 'position/size' repeat clip origin attachment);
+// 	}
+@mixin background($values: null) {
+
+	$isClip: false;
+	@each $value in $values {
+		@if type-of($value) == color {
+			// @debug 'background-color:' $value;
+			background-color: $value;
+		}
+		@else if str-index($value, 'url') or str-index($value, 'gradient') or str-index($value, 'none') {
+			// gradient mixin 추가 고려
+			// @debug 'background-image:' $value;
+			background-image: $value;
+		}
+		@else if str-index($value, 'repeat') or index(space round, $value) {
+			// @debug 'background-repeat:' $value;
+			background-repeat: $value;
+		}
+		@else if str-index($value, 'box') {
+			@if not $isClip {
+				// @debug 'background-clip:' $value;
+				background-clip: $value;
+				$isClip: true;
+			}
+			@else {
+				// @debug 'background-origin:' $value;
+				background-origin: $value;
+			}
+		}
+		@else if index(scroll fixed local, $value) {
+			// @debug 'background-attachment:' $value;
+			background-attachment: $value;
+		}
+		@else if str-index(inspect($value), '"') == 1 {
+			$numbers: str-split(unquote($value), '/');
+			@for $i from 1 through length($numbers) {
+				$number: nth($numbers, $i);
+				@if ($number != '') {
+					@if $i == 1 {
+						// @debug 'background-position:' $number;
+						background-position: $number;
+					}
+					@else {
+						// @debug 'background-size:' $number;
+						background-size: $number;
+					}
+				}
+			}
+		}
+	}
+
+}
+//> 백그라운드 속성 분할
+
+//< 대체텍스트
+//	.foo {
+//		@include text-ir(indent);
+//	}
+@mixin text-ir($type: blind) {
+
+	@if $type == blind {
+		overflow: hidden;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 0;
+		height: 0;
+		@include font('0/1');
+	} @else if $type == indent {
+		// 적용 시 display: block 또는 inline-block 적용 필요
+		overflow: hidden;
+		@include font('0/1');
+		text-indent: -99999px;
+	} @else if $type == wa {
+		position: relative;
+		z-index: -1;
+	}
+
+}
+//> 대체텍스트
+
+//< 텍스트 말줄임
+@mixin text-ellipsis($line: 1, $replace: ellipsis) {
+
+	@if $line > 0 {
+		overflow: hidden;
+		max-width: 100%;
+		text-overflow: $replace;
+
+		@if $line < 2 {
+			line-height: 1.4;
+			white-space: nowrap;
+
+			// .__ios & {
+			// 	display: -webkit-box;
+			// 	white-space: normal;
+			// 	-webkit-box-orient: vertical;
+			// 	-webkit-line-clamp: $line;
+			// }
+
+			br {
+				display: none;
+			}
+		} @else {
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: $line;
+		}
+	} @else {
+		display: block;
+		overflow: visible;
+		text-overflow: clip;
+		white-space: normal;
+		-webkit-line-clamp: 0;
+
+		br {
+			display: inline;
+		}
+	}
+
+}
+//> 텍스트 말줄임
+
+//< 웹폰트
+//	.foo {
+//		@include font-face('fontname', font/filename);
+//		@include font-face('fontname', font/filename, bold, eot woff2 woff);
+//		@include font-face('fontname', font/filename, normal, eot woff2 woff ttf svg);
+//		@include font-face('fontname', font/filename, normal, eot woff2 woff otf svg, italic);
+//	}
+@mixin font-face($name, $path, $weight: 400, $exts: woff2 woff, $style: normal) {
+
+	$src: null;
+	$src-eot: null;
+
+	$extmods: (
+		eot: '#iefix',
+		svg: '#' + str-replace($name, ' ', '_')
+	);
+
+	$formats: (
+		eot: 'embedded-opentype',
+		otf: 'opentype',
+		ttf: 'truetype'
+	);
+
+	@each $ext in $exts {
+		$extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+		$format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+		$src: append($src, url(quote($path + '.' + $extmod)) format(quote($format)), comma);
+		@if $ext == eot {
+			$src-eot: url(quote($path + '.' + $ext));
+		}
+	}
+
+	@font-face {
+		font-weight: $weight;
+		font-style: $style;
+		font-family: quote($name);
+		@if $src-eot {
+			src: $src-eot;// IE9 호환성보기
+		}
+		src: $src;
+	}
+
+}
+//> 웹폰트
+
+//< 폰트 속성 분할
+// font-variant 속성 제외
+// font-weight 속성 값은 100단위 숫자로 사용 권장(normal 400)
+// 	.foo {
+// 		@include font(color weight style 'size/lineheight' [family] align decoration, whitespace letter-spacing);
+// 	}
+@mixin font($values: (), $options: ()) {
+
+	$isStyle: false;
+	@each $value in $values {
+		@if type-of($value) == color {
+			// @debug 'color:' $value;
+			color: $value;
+		}
+		@else if not $isStyle and index(normal italic, $value) {
+			// @debug 'font-style:' $value;
+			font-style: $value;
+			$isStyle: true;
+		}
+		@else if index(normal lighter bold bolder 100 200 300 400 500 600 700 800 900, $value) {
+			// @debug 'font-weight:' $value;
+			font-weight: $value;
+		}
+		@else if type-of($value) == list {
+			// @debug 'font-family:' $value;
+			font-family: join($value, [], $bracketed: false);
+		}
+		@else if str-index(inspect($value), '"') == 1 {
+			$sizes: str-split(unquote($value), '/');
+			@for $i from 1 through length($sizes) {
+				$size: nth($sizes, $i);
+				@if ($size != '') {
+					@if $i == 1 {
+						// @debug 'font-size:' $size;
+						font-size: $size;
+					}
+					@else {
+						// @debug 'line-height:' $size;
+						line-height: $size;
+					}
+				}
+			}
+		}
+		@else if index(left center right justify, $value) {
+			// @debug 'text-align:' $value;
+			text-align: $value;
+		}
+		@else if index(overline line-through underline none, $value) {
+			// @debug 'text-decoration:' $value;
+			text-decoration: $value;
+		}
+	}
+
+	@each $option in $options {
+		// @debug type-of($option);
+		@if (type-of($option) == number) {
+			// @debug 'letter-spacing:' $option;
+			letter-spacing: $option;
+		}
+		@else {
+			// @debug 'white-space:' $option;
+			white-space: $option;
+		}
+	}
+
+}
+//> 폰트 속성 분할
+
+//< border triangle
+//	.foo {
+//		@include triangle(#000, left, 3px, 6px);
+//	}
+@mixin triangle($color, $direction, $size-width, $size-height: $size-width) {
+
+	width: 0;
+	height: 0;
+	@include font('0/1');
+	border: $size-width solid transparent;
+
+	@if $direction == bottom {
+		border-top: $size-height solid $color;
+		border-bottom: 0;
+	} @else if $direction == top {
+		border-top: 0;
+		border-bottom: $size-height solid $color;
+	} @else if $direction == left {
+		border-right: $size-height solid $color;
+		border-left: 0;
+	} @else if $direction == right {
+		border-right: 0;
+		border-left: $size-height solid $color;
+	} @else if $direction == top-left {
+		border-top: $size-height solid $color;
+		border-bottom: 0;
+		border-left: 0;
+	} @else if $direction == top-right {
+		border-top: $size-height solid $color;
+		border-bottom: 0;
+		border-right: 0;
+	} @else if $direction == bottom-left {
+		border-top: 0;
+		border-bottom: $size-height solid $color;
+		border-left: 0;
+	} @else if $direction == bottom-right {
+		border-top: 0;
+		border-bottom: $size-height solid $color;
+		border-right: 0;
+	}
+
+}
+//> border triangle
+
+//< opacity IE8
+// png 이미지에만 적용됨 (background-color는 반투명 png이미지로 적용)
+//	.foo {
+//		@include opacity(0.1);
+//	}
+@mixin opacity($opacity, $pointer-events: null) {
+
+	opacity: $opacity;
+
+	// IE11부터로 제외
+	// $ms-opacity: $opacity;
+	// $important: str-index(inspect($ms-opacity), '!');
+	// @if $important {
+	//	$ms-opacity: to-number(str-replace(str-slice(inspect($ms-opacity), 1, $important - 1), ' ', ''));
+	// }
+	// -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$ms-opacity * 100})';
+
+	@if $pointer-events {
+		@include prefix(pointer-events, $pointer-events, ms);
+	}
+
+}
+//> opacity IE8
+
+//< 모션 키프레임
+@mixin keyframes($name) {
+
+	@-webkit-keyframes #{$name} {
+		@content;
+	}
+	@keyframes #{$name} {
+		@content;
+	}
+
+}
+//> 모션 키프레임
+
+//< 미디어쿼리
+//	.foo {
+//		width: 100%;
+//		@include media(XL) {
+//			width: 50%;
+//	}
+@mixin media($point) {
+
+	@if $point == XXL {
+		@media (min-width: 1600px) { @content; }
+	} @else if $point == XL {
+		@media (min-width: 1280px) { @content; }
+	} @else if $point == L {
+		@media (min-width: 1024px) { @content; }
+	} @else if $point == M {
+		@media (min-width: 768px) { @content; }
+	} @else if $point == S {
+		@media (min-width: 640px) { @content; }
+	} @else if $point == XS {
+		@media (min-width: 480px) { @content; }
+	} @else if $point == XXS {
+		@media (min-width: 375px) { @content; }
+	} @else {
+		@media ($point) { @content; }
+	}
+
+}
+//> 미디어쿼리
+
+//< 몬티콘
+@mixin monticon($name, $content, $fontFamily: null) {
+
+	$selector: null;
+
+	@if & == null {
+		$selector: $name;
+	}
+	@else if $name == '' {
+		$selector: &;
+	}
+	@else {
+		$selector: #{selector-append(&, $name)};
+	}
+	// @debug $selector;
+	@at-root #{$selector}::before {
+		@if $fontFamily {
+			font-family: $fontFamily;
+		}
+		content: '#{$content}';
+	}
+
+}
+//> 몬티콘
+
+//< 셀렉터 변경
+// $replace-context에 띄어쓰기 사용 시 > 또는 + 필수
+@mixin context-replace($target-context, $replace-context) {
+
+	@at-root #{selector-replace(&, $target-context, $replace-context)} {
+		// @debug 'replace:' $target-context $replace-context &;
+		@content;
+	}
+
+}
+//> 셀렉터 변경
+
+//< 셀렉터 순서 정리(div.class::before 순으로 정리)
+@mixin context-unify($context) {
+
+	@at-root #{selector-unify(&, $context)} {
+		// @debug 'unify:' $context &;
+		@content;
+	}
+
+}
+//> 셀렉터 순서 정리(div.class::before 순으로 정리)
+
+//< 첫 번째 요소에 앞에 셀렉터 추가(.add.context)
+@mixin context-first($context) {
+
+	@at-root #{selector-append($context, &)} {
+		// @debug 'first:' $context &;
+		@content;
+	}
+
+}
+//> 첫 번째 요소에 앞에 셀렉터 추가(.add.context)
+
+//< 선택한 요소 앞에 셀렉터 추가(.add.context, .add > .context)
+// $add-context에 띄어쓰기 사용 시 > 또는 + 필수
+@mixin context-before($add-context, $target-context: null) {
+
+	$selectors: ();
+	@each $selector in & {
+		$context: if($target-context, $target-context, str-slice(inspect($selector), str-last-index(inspect($selector), ' ') + 1, str-length(inspect($selector))));
+		$selectors: append($selectors, selector-replace($selector, $context, $add-context + $context), comma);
+		// @debug $context;
+	}
+	// @debug $selectors;
+
+	@at-root #{$selectors} {
+		// @debug 'before:' $add-context $target-context &;
+		@content;
+	}
+
+}
+//> 선택한 요소 앞에 셀렉터 추가(.add.context, .add > .context)
+
+//< 선택한 요소 뒤에 셀렉터 추가(.context.add, .context > .add)
+// $add-context에 띄어쓰기 사용 시 > 또는 + 필수
+@mixin context-after($add-context, $target-context: null) {
+
+	$selectors: ();
+	@each $selector in & {
+		$context: if($target-context, $target-context, str-slice(inspect($selector), str-last-index(inspect($selector), ' ') + 1, str-length(inspect($selector))));
+		$selectors: append($selectors, selector-replace($selector, $context, $context + $add-context), comma);
+		// @debug $context;
+	}
+	// @debug $selectors;
+
+	@at-root #{$selectors} {
+		// @debug 'after:' $add-context $target-context &;
+		@content;
+	}
+
+}
+//> 선택한 요소 뒤에 셀렉터 추가(.context.add, .context > .add)
