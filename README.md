@@ -1,12 +1,9 @@
 # 스타일크루 CSM
+_2020.02 ~ 2020.07_
 + 엠몬스타 전체 일정
-	https://docs.google.com/spreadsheets/d/1ZNsKeZrZAr2o6DdYGvnWOHJsOPCGyQJgjerCMU5jhUY/edit#gid=425404578
 + 기획 구글드라이브 경로
-	https://drive.google.com/drive/folders/1dKdlZBcU1CJuyYoAcYWnlYFN_NcivuLe
 + 디자인 구글드라이브 경로
-	https://drive.google.com/drive/folders/1tmVE90OqFtvUKOmHPk71HaTldq0SEBAH
 + 퍼블리싱 작업 리스트
-	- https://publish.mmonstar.co.kr/stylecrew/csm_2021/
 <br><br>
 
 ## 작업환경
@@ -14,14 +11,12 @@
 	- SFTP의 **sftp.json** 파일설정
 		```
 		"name": "ftp",
-		"host": "1.xxx.xx.x2",
+		"host": "",
 		"protocol": "sftp",
 		"port": 8023,
-		"username": "mmon_publish",
+		"username": "",
 		"password": "비밀번호",
-		"remotePath": "/home/mmon_publish/html/stylecrew/csm_2021",(실서버)
-		"remotePath": "/home/mmon_publish/_ui/html/stylecrew/csm_2021/",(FTP전달용)
-		"remotePath": "/home/mmon_publish/작업자/html/stylecrew/csm_2021/",(서브 작업자 설정방식)
+		"remotePath": "",
 		"uploadOnSave": true,
 		...
 		"watcher": {
